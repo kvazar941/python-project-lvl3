@@ -1,0 +1,5 @@
+env/
+*.рус
+__pycache__
+dist/
+Makefile
