@@ -25,6 +25,6 @@ class Page():
 
 def page_load(url_page, way_to_dir):
     page = Page(url_page)
-    write(way_to_dir + page.valid_name(), page.content_url())
-    return '<Response [200]>'
+    write(''.join([way_to_dir, page.valid_name()]), page.content_url())
+    return str(way_to_dir + page.valid_name())
 
