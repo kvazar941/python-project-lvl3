@@ -37,13 +37,21 @@ class Page():
     def content_url(self):
         return self.response().text
 
+    def links(self):
+        self.soup = BeautifulSoup(self.content_url(), 'html.parser')
+        return [x['src'] for x in self.soup.find_all('img')]
+
 
 def page_load(url_page, way_to_dir):
     page = Page(url_page)
-    #write(''.join([way_to_dir, page.valid_name()]), page.content_url())
-    soup = BeautifulSoup(page.content_url(), 'html.parser')
-    link = [x['src'] for x in soup.find_all('img')]
-    #print(soup.find_all('img'))
-    print(link)
+    down_dir = ''.join([way_to_dir, page.valid_name()])
+    cont = page.content_url()
+    print(page.links())
+    for a in page.links():
+        r = requests.get(a)
+        with open('./downloads/1.svg', 'wb') as file_:
+            file_.write(r.content)
+        new_cont = cont.replace(a, './downloads/1.svg')
+    write(down_dir, new_cont)
     return str(way_to_dir + page.valid_name())
 
