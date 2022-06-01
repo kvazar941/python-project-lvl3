@@ -1,5 +1,6 @@
 """Engine module."""
-#import os
+import os
+from urllib.parse import urlparse
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 import requests
@@ -10,17 +11,40 @@ def rename(name):
     '''https://ru.hexlet.io/courses --> ru-hexlet-io-courses'''
     one = name.split('//')[1]
     two = one.replace('.', '-')
-    return two.replace('/', '-')
+    three = two.replace('/', '-')
+    return three[::-4] if three.endswith('html') else three
 
 
 def rename_to_html(name):
-    res_name = rename(name)
-    return res_name + '.html' if res_name[-4:] != 'html' else res_name
+    return '.'.join([rename(name), 'html'])
 
 
-def rename_to_png(name):
-    res_name = rename(name)
-    return res_name + '.png' if res_name[-3:] != 'png' else res_name
+def rename_to_dir(name):
+    return '_'.join([rename(name), 'files'])
+
+
+def rename_to_image(dir_, name):
+    way, extension = os.path.splitext(name)
+    current_file_name = rename(way) + extension
+    return '/'.join([dir_, current_file_name])
+
+
+def get_data(link):
+    data = requests.get(link)
+    return data.content
+
+
+def download_file(link, way):
+    write(way, get_data(link), 'wb')
+
+
+def changed_link(old_link, new_link, content):
+    return content.replace(old_link, new_link)
+
+
+def make_directory(directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
 
 
 class Page():
@@ -28,7 +52,6 @@ class Page():
         self.url = url
 
     def valid_name(self):
-        '''https://ru.hexlet.io/courses --> ru-hexlet-io-courses.html'''
         return rename_to_html(self.url)
 
     def response(self):
@@ -46,12 +69,14 @@ def page_load(url_page, way_to_dir):
     page = Page(url_page)
     down_dir = ''.join([way_to_dir, page.valid_name()])
     cont = page.content_url()
-    print(page.links())
-    for a in page.links():
-        r = requests.get(a)
-        with open('./downloads/1.svg', 'wb') as file_:
-            file_.write(r.content)
-        new_cont = cont.replace(a, './downloads/1.svg')
-    write(down_dir, new_cont)
+    dir_ = rename_to_dir(page.url)
+    make_directory(dir_)
+    #if not os.path.exists(dir_):
+    #    os.mkdir(dir_)
+    for link in page.links():
+        full_way = rename_to_image(dir_, link)
+        download_file(link, full_way)
+        cont = changed_link(link, full_way, cont)
+    write(down_dir, cont)
     return str(way_to_dir + page.valid_name())
 
