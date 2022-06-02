@@ -34,10 +34,6 @@ def get_data(link):
     return data.content
 
 
-def download_file(link, way):
-    write(way, get_data(link), 'wb')
-
-
 def changed_link(old_link, new_link, content):
     return content.replace(old_link, new_link)
 
@@ -45,6 +41,10 @@ def changed_link(old_link, new_link, content):
 def make_directory(directory):
     if not os.path.exists(directory):
         os.mkdir(directory)
+
+def get_link_from_tag(content, resource, tag):
+    soup = BeautifulSoup(content, 'html.parser')
+    return [item[resource] for item in soup.find_all(tag) if item.get(resource)!= None]
 
 
 class Page():
@@ -60,23 +60,55 @@ class Page():
     def content_url(self):
         return self.response().text
 
-    def links(self):
-        self.soup = BeautifulSoup(self.content_url(), 'html.parser')
-        return [x['src'] for x in self.soup.find_all('img')]
+    def links_img(self):
+        return get_link_from_tag(self.content_url(), 'src', 'img')
+        soup = BeautifulSoup(self.content_url(), 'html.parser')
+        return [x['src'] for x in soup.find_all('img')]
+
+    def links_link(self):
+        return get_link_from_tag(self.content_url(), 'href', 'link')
+
+    def links_script(self):
+        return get_link_from_tag(self.content_url(), 'src', 'script')
+
+
+def download_file(link, way):
+    write(way, get_data(link), 'wb')
+
+
+def download_html(way_to_file, cont):
+    write(way_to_file, cont)
+
+
+def download_resourses(list_, dir_):
+    result = {}
+    make_directory(dir_)
+    for link in list_:
+        full_way = rename_to_image(dir_, link)
+        download_file(link, full_way)
+        result[link] = full_way
+    return result
+
+
+def load_one_page(url, way):
+    page = Page(url)
+    dir_ = rename_to_dir(page.url)
+    way_to_html = ''.join([way, page.valid_name()])
+    content_result = page.content_url()
+    a = download_resourses(page.links_img(), dir_)
+    b = download_resourses(page.links_link(), dir_)
+    c = download_resourses(page.links_script(), dir_)
+    for link in a:
+        content_result = changed_link(link, a[link], content_result)
+    for link in b:
+        content_result = changed_link(link, b[link], content_result)
+    for link in c:
+        content_result = changed_link(link, c[link], content_result)
+    download_html(way_to_html, content_result)
+    return way_to_html
 
 
 def page_load(url_page, way_to_dir):
-    page = Page(url_page)
-    down_dir = ''.join([way_to_dir, page.valid_name()])
-    cont = page.content_url()
-    dir_ = rename_to_dir(page.url)
-    make_directory(dir_)
-    #if not os.path.exists(dir_):
-    #    os.mkdir(dir_)
-    for link in page.links():
-        full_way = rename_to_image(dir_, link)
-        download_file(link, full_way)
-        cont = changed_link(link, full_way, cont)
-    write(down_dir, cont)
-    return str(way_to_dir + page.valid_name())
+    load_one_page(url_page, way_to_dir)
+    return str(rename_to_html(url_page))
 
