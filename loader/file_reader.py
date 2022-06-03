@@ -1,5 +1,6 @@
 """module file_reader."""
 
+
 def read(way_to_file):
     """
     Read file.
