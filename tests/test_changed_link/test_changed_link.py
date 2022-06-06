@@ -1,22 +1,13 @@
 """test_changed_link"""
-import requests
-import requests_mock
 import os.path
 from loader.engine import changed_link
 from loader.file_reader import read
 
-PAGE = 'https://ru.hexlet.io/courses'
-CONTENT = 'tests/test_page_load/fixtures/content_simple_page.html'
-DIRECTORY = 'tests/test_page_load/downloading_files/'
-VALID_NAME = 'ru-hexlet-io-courses.html'
-TEST_FILE = DIRECTORY + VALID_NAME
-
+#CONTENT = read('./fixtures/content.txt')
+#RESULT_CONTENT = read('./fixtures/result_content.txt')
 
 def test_changed_link(requests_mock):
-    expected_content = read(CONTENT)
-    requests_mock.get(PAGE, text=expected_content)
-    received_content = read(TEST_FILE)
-    assert True
-    #assert page_load(PAGE, DIRECTORY) == TEST_FILE
-    #assert os.path.exists(TEST_FILE) == True
+    #expected_content = read(CONTENT)
+    #received_content = read(TEST_FILE)
     #assert expected_content == received_content
+    assert True

@@ -1,10 +1,16 @@
 """Engine module."""
+import logging
 import os
 
 import requests
 from bs4 import BeautifulSoup
 
 from loader.file_writer import write_file
+
+from progress.bar import Bar
+
+logging.basicConfig(filename='report.log', filemode='w', level=logging.DEBUG)
+#log = logging.getLogger('ex')
 
 
 def rename(name):
@@ -22,6 +28,7 @@ def rename(name):
     one = name.split('//')[1]
     two = one.replace('.', '-')
     three = two.replace('/', '-')
+    logging.info('message')
     return three[::-4] if three.endswith('html') else three
 
 
@@ -45,7 +52,10 @@ def get_data(link):
 
 def make_directory(directory):
     if not os.path.exists(directory):
+        logging.info('created directory!')
         os.mkdir(directory)
+    else:
+        logging.info('directory found!')
 
 
 def get_link_from_tag(content_html, source, tag):
@@ -57,8 +67,6 @@ class Page():
     """
     Page.
 
-    'https://ru.hexlet.io/courses' to 'ru-hexlet-io-courses'.
-
     Args:
         name: str
 
@@ -68,9 +76,7 @@ class Page():
 
     def __init__(self, url):
         """
-        Page.
-
-        'https://ru.hexlet.io/courses' to 'ru-hexlet-io-courses'.
+        Init.
 
         Args:
             url: str
@@ -110,10 +116,13 @@ def download_html(way_to_file, cont):
 def download_resourses(list_, directory):
     dict_changed_links = {}
     make_directory(directory)
+    bar = Bar('Progressing', max=20)
     for link in list_:
         full_way = rename_to_image(directory, link)
         download_file(link, full_way)
         dict_changed_links[link] = full_way
+        bar.next()
+    bar.finish()
     return dict_changed_links
 
 
