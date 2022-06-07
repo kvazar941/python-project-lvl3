@@ -1,16 +1,17 @@
 """module file_reader."""
 
 
-def read(way_to_file):
+def read_file(way_to_file, mode='r'):
     """
     Read file.
 
     Args:
         way_to_file: str
+        mode: str
 
     Returns:
         str
     """
-    with open(way_to_file) as file_name:
+    with open(way_to_file, mode) as file_name:
         file_content = file_name.read()
     return file_content

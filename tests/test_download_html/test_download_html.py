@@ -1,22 +1,15 @@
 """test_download_html"""
-import requests
-import requests_mock
 import os.path
 from loader.engine import download_html
-from loader.file_reader import read
+from loader.file_reader import read_file
 
-PAGE = 'https://ru.hexlet.io/courses'
-CONTENT = 'tests/test_page_load/fixtures/content_simple_page.html'
-DIRECTORY = 'tests/test_page_load/downloading_files/'
-VALID_NAME = 'ru-hexlet-io-courses.html'
-TEST_FILE = DIRECTORY + VALID_NAME
+CONTENT = 'tests/test_download_html/fixtures/content.html'
+TEXT_RESULT = 'tests/test_download_html/fixtures/TEXT_RESULT.html'
 
 
-def test_download_html(requests_mock):
-    expected_content = read(CONTENT)
-    requests_mock.get(PAGE, text=expected_content)
-    received_content = read(TEST_FILE)
-    assert True
-    #assert page_load(PAGE, DIRECTORY) == TEST_FILE
-    #assert os.path.exists(TEST_FILE) == True
-    #assert expected_content == received_content
+def test_download_html():
+    assert os.path.exists(TEXT_RESULT) == False
+    download_html(TEXT_RESULT, read_file(CONTENT))
+    assert os.path.exists(TEXT_RESULT) == True
+    assert read_file(CONTENT) == read_file(TEXT_RESULT)
+    os.remove(TEXT_RESULT)

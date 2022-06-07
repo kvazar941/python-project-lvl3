@@ -4,13 +4,16 @@ import os
 
 import requests
 from bs4 import BeautifulSoup
-
-from loader.file_writer import write_file
-
 from progress.bar import Bar
 
-logging.basicConfig(filename='report.log', filemode='w', level=logging.DEBUG)
-#log = logging.getLogger('ex')
+from loader.file_reader import read_file
+from loader.file_writer import write_file
+
+logging.basicConfig(filename='report.log', filemode='w', level=logging.INFO)
+
+Progress_img = 'Downloading images'
+Progress_links = 'Downloading links'
+Progress_scripts = 'Downloading scripts'
 
 
 def rename(name):
@@ -51,11 +54,11 @@ def get_data(link):
 
 
 def make_directory(directory):
-    if not os.path.exists(directory):
+    if os.path.exists(directory):
+        logging.info('directory found!')
+    else:
         logging.info('created directory!')
         os.mkdir(directory)
-    else:
-        logging.info('directory found!')
 
 
 def get_link_from_tag(content_html, source, tag):
@@ -105,24 +108,30 @@ class Page():
         return get_link_from_tag(self.content_url(), 'src', 'script')
 
 
-def download_file(link, way):
-    write_file(way, get_data(link).content, 'wb')
+def download_file(link, way_to_file):
+    if os.path.exists(way_to_file):
+        if get_data(link).content == read_file(way_to_file, 'rb'):
+            return
+    write_file(way_to_file, get_data(link).content, 'wb')
 
 
 def download_html(way_to_file, cont):
+    if os.path.exists(way_to_file):
+        if cont == read_file(way_to_file, 'rb'):
+            return
     write_file(way_to_file, cont)
 
 
-def download_resourses(list_, directory):
+def get_sourses(list_, directory, text):
     dict_changed_links = {}
     make_directory(directory)
-    bar = Bar('Progressing', max=20)
+    progress_bar = Bar(text, max=len(list_))
     for link in list_:
         full_way = rename_to_image(directory, link)
         download_file(link, full_way)
         dict_changed_links[link] = full_way
-        bar.next()
-    bar.finish()
+        progress_bar.next()
+    progress_bar.finish()
     return dict_changed_links
 
 
@@ -138,13 +147,13 @@ def load_one_page(url, way):
     dir_ = rename_to_dir(page.url)
     content_result = page.content_url()
     #  loading resources and changing links to img
-    replased_img = download_resourses(page.links_img(), dir_)
+    replased_img = get_sourses(page.links_img(), dir_, Progress_img)
     content_result = changed_link(replased_img, content_result)
     #  loading resources and changing links to link
-    replased_links = download_resourses(page.links_link(), dir_)
+    replased_links = get_sourses(page.links_link(), dir_, Progress_links)
     content_result = changed_link(replased_links, content_result)
     #  loading resources and changing links to scripts
-    replased_scripts = download_resourses(page.links_script(), dir_)
+    replased_scripts = get_sourses(page.links_script(), dir_, Progress_scripts)
     content_result = changed_link(replased_scripts, content_result)
     #  write the final ~.html to the hard drive
     way_to_html = ''.join([way, page.valid_name()])

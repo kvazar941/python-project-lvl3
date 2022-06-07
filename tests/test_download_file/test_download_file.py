@@ -3,20 +3,16 @@ import requests
 import requests_mock
 import os.path
 from loader.engine import download_file
-from loader.file_reader import read
-
-PAGE = 'https://ru.hexlet.io/courses'
-CONTENT = 'tests/test_page_load/fixtures/content_simple_page.html'
-DIRECTORY = 'tests/test_page_load/downloading_files/'
-VALID_NAME = 'ru-hexlet-io-courses.html'
-TEST_FILE = DIRECTORY + VALID_NAME
+from loader.file_reader import read_file
+WAY = 'tests/test_download_file/fixtures/downloaded_file.css'
+SOURCE_ONE = 'https://ru.hexlet.io/courses/assets/application.css'
+TEXT_RESULT = 'tests/test_download_file/fixtures/TEXT_RESULT.css'
 
 
 def test_download_file(requests_mock):
-    expected_content = read(CONTENT)
-    requests_mock.get(PAGE, text=expected_content)
-    received_content = read(TEST_FILE)
-    assert True
-    #assert page_load(PAGE, DIRECTORY) == TEST_FILE
-    #assert os.path.exists(TEST_FILE) == True
-    #assert expected_content == received_content
+    requests_mock.get(SOURCE_ONE, text=read_file(TEXT_RESULT))
+    assert os.path.exists(WAY) == False
+    download_file(SOURCE_ONE, WAY)
+    assert os.path.exists(WAY) == True
+    assert read_file(WAY) == read_file(TEXT_RESULT)
+    os.remove(WAY)
