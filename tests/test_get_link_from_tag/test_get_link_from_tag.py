@@ -2,21 +2,23 @@
 import requests
 import requests_mock
 import os.path
+from bs4 import BeautifulSoup
 from loader.engine import get_link_from_tag
 from loader.file_reader import read_file
 
-PAGE = 'https://ru.hexlet.io/courses'
-CONTENT = 'tests/test_page_load/fixtures/content_simple_page.html'
-DIRECTORY = 'tests/test_page_load/downloading_files/'
-VALID_NAME = 'ru-hexlet-io-courses.html'
-TEST_FILE = DIRECTORY + VALID_NAME
+TEST_CONTENT = 'tests/test_get_link_from_tag/fixtures/test_content.html'
 
 
-def test_get_link_from_tag(requests_mock):
-    expected_content = read_file(CONTENT)
-    requests_mock.get(PAGE, text=expected_content)
-    received_content = read_file(TEST_FILE)
-    assert True
-    #assert page_load(PAGE, DIRECTORY) == TEST_FILE
-    #assert os.path.exists(TEST_FILE) == True
-    #assert expected_content == received_content
+def test_get_link_from_tag():
+    content = read_file(TEST_CONTENT)
+    reseived_img = ["/assets/professions/nodejs.png"]
+    reseived_links = ["https://cdn2.hexlet.io/assets/menu.css",
+                "/assets/application.css",
+                "/courses",
+                 ]
+    reseived_scripts = ["https://js.stripe.com/v3/",
+                        "https://ru.hexlet.io/packs/js/runtime.js"
+                        ]
+    assert get_link_from_tag(content, 'src', 'img') == reseived_img    
+    assert get_link_from_tag(content, 'href', 'link') == reseived_links
+    assert get_link_from_tag(content, 'src', 'script') == reseived_scripts

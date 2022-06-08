@@ -122,11 +122,11 @@ def download_html(way_to_file, cont):
     write_file(way_to_file, cont)
 
 
-def get_sourses(list_, directory, text):
+def get_sourses(list_links, directory, text_progress):
     dict_changed_links = {}
     make_directory(directory)
-    progress_bar = Bar(text, max=len(list_))
-    for link in list_:
+    progress_bar = Bar(text_progress, max=len(list_links))
+    for link in list_links:
         full_way = rename_to_image(directory, link)
         download_file(link, full_way)
         dict_changed_links[link] = full_way
