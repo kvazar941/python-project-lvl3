@@ -1,6 +1,7 @@
 """Engine module."""
 import logging
 import os
+from urllib.parse import urlparse, urlunparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -28,11 +29,12 @@ def rename(name):
     Returns:
         str
     """
-    one = name.split('//')[1]
+    url = urlparse(name)
+    one = url.netloc + url.path
     two = one.replace('.', '-')
     three = two.replace('/', '-')
     logging.info('message')
-    return three[::-4] if three.endswith('html') else three
+    return three
 
 
 def rename_to_html(name):
@@ -43,7 +45,7 @@ def rename_to_dir(name):
     return '_'.join([rename(name), 'files'])
 
 
-def rename_to_image(dir_, name):
+def rename_to_file(dir_, name):
     way, extension = os.path.splitext(name)
     current_file_name = rename(way) + extension
     return '/'.join([dir_, current_file_name])
@@ -122,12 +124,22 @@ def download_html(way_to_file, cont):
     write_file(way_to_file, cont)
 
 
+def restore_links(url, links):
+    res_link = []
+    urla = urlparse(url)
+    for link in links:
+        urlb = urlparse(link)
+        urlb = urlb._replace(scheme=urla.scheme, netloc=urla.netloc)
+        res_link.append(urlunparse(urlb))
+    return res_link
+
+
 def get_sourses(list_links, directory, text_progress):
     dict_changed_links = {}
     make_directory(directory)
     progress_bar = Bar(text_progress, max=len(list_links))
     for link in list_links:
-        full_way = rename_to_image(directory, link)
+        full_way = rename_to_file(directory, link)
         download_file(link, full_way)
         dict_changed_links[link] = full_way
         progress_bar.next()
@@ -147,13 +159,16 @@ def load_one_page(url, way):
     dir_ = rename_to_dir(page.url)
     content_result = page.content_url()
     #  loading resources and changing links to img
-    replased_img = get_sourses(page.links_img(), dir_, Progress_img)
+    list_links_img = restore_links(url, page.links_img())
+    replased_img = get_sourses(list_links_img, dir_, Progress_img)
     content_result = changed_link(replased_img, content_result)
     #  loading resources and changing links to link
-    replased_links = get_sourses(page.links_link(), dir_, Progress_links)
+    list_links = restore_links(url, page.links_link())
+    replased_links = get_sourses(list_links, dir_, Progress_links)
     content_result = changed_link(replased_links, content_result)
     #  loading resources and changing links to scripts
-    replased_scripts = get_sourses(page.links_script(), dir_, Progress_scripts)
+    list_links_scripts = restore_links(url, page.links_script())
+    replased_scripts = get_sourses(list_links_scripts, dir_, Progress_scripts)
     content_result = changed_link(replased_scripts, content_result)
     #  write the final ~.html to the hard drive
     way_to_html = ''.join([way, page.valid_name()])
