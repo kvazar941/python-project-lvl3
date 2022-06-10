@@ -1,15 +1,16 @@
 """test_download_html"""
 import os.path
+import tempfile
 from loader.engine import download_html
 from loader.file_reader import read_file
 
-CONTENT = 'tests/test_download_html/fixtures/content.html'
-TEXT_RESULT = 'tests/test_download_html/fixtures/TEXT_RESULT.html'
+TEST_NAME = 'test_file.html'
 
 
 def test_download_html():
-    assert os.path.exists(TEXT_RESULT) == False
-    download_html(TEXT_RESULT, read_file(CONTENT))
-    assert os.path.exists(TEXT_RESULT) == True
-    assert read_file(CONTENT) == read_file(TEXT_RESULT)
-    os.remove(TEXT_RESULT)
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        way_result = tmpdirname + TEST_NAME
+        assert os.path.exists(way_result) == False
+        download_html(way_result, 'content')
+        assert os.path.exists(way_result) == True
+        assert read_file(way_result) == 'content'

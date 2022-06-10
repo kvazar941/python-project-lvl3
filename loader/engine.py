@@ -156,7 +156,7 @@ def changed_link(dict_, content_html):
 
 def load_one_page(url, way):
     page = Page(url)
-    dir_ = rename_to_dir(page.url)
+    dir_ = way + rename_to_dir(page.url)
     content_result = page.content_url()
     #  loading resources and changing links to img
     list_links_img = restore_links(url, page.links_img())
