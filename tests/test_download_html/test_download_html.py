@@ -1,7 +1,7 @@
 """test_download_html"""
 import os.path
 import tempfile
-from loader.engine import download_html
+from loader.downloader import download_html
 from loader.file_reader import read_file
 
 TEST_NAME = 'test_file.html'

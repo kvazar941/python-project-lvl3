@@ -2,7 +2,7 @@
 import requests
 import requests_mock
 import os.path
-from loader.engine import get_data
+from loader.data_recipient import get_data
 from loader.file_reader import read_file
 
 LINK = 'https://ru.hexlet.io/courses'

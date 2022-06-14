@@ -3,7 +3,7 @@ import requests
 import requests_mock
 import os.path
 import tempfile
-from loader.engine import download_file
+from loader.downloader import download_file
 from loader.file_reader import read_file
 NAME = 'downloaded_file.css'
 SOURCE_ONE = 'https://ru.hexlet.io/courses/assets/application.css'

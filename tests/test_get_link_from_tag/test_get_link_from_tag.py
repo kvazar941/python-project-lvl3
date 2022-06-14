@@ -3,7 +3,7 @@ import requests
 import requests_mock
 import os.path
 from bs4 import BeautifulSoup
-from loader.engine import get_link_from_tag
+from loader.page_object import get_link_from_tag
 from loader.file_reader import read_file
 
 TEST_CONTENT = 'tests/test_get_link_from_tag/fixtures/test_content.html'

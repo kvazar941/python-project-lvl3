@@ -1,5 +1,5 @@
 """test_rename"""
-from loader.engine import rename
+from loader.renamer import rename
 
 PAGES = ['https://ru.hexlet.io/courses',
          'ru.hexlet.io/courses']
