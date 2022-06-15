@@ -1,6 +1,7 @@
-"""test_make_directory"""
-import os.path
+"""test_make_directory."""
+import os
 import tempfile
+
 from loader.engine import make_directory
 
 DIRECTORY = 'test_directory'
@@ -8,7 +9,7 @@ DIRECTORY = 'test_directory'
 
 def test_make_directory():
     with tempfile.TemporaryDirectory() as tmpdirname:
-        way_result = tmpdirname + '/' + DIRECTORY
-        assert os.path.exists(way_result) == False
+        way_result = '/'.join([tmpdirname, DIRECTORY])
+        assert not os.path.exists(way_result)
         make_directory(way_result)
-        assert os.path.exists(way_result) == True
+        assert os.path.exists(way_result)

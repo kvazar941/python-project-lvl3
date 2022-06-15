@@ -1,12 +1,11 @@
-"""test_rename"""
+"""test_rename."""
 from loader.renamer import rename
-
-PAGES = ['https://ru.hexlet.io/courses',
-         'ru.hexlet.io/courses']
-
-VALID_NAME = 'ru-hexlet-io-courses'
 
 
 def test_rename():
-    for item in PAGES:
-        assert rename(item) == VALID_NAME
+    name_one = 'https://ru.hexlet.io/courses'
+    name_two = 'ru.hexlet.io/courses'
+    name_three = 'ru.hexlet.io/courses.html'
+    assert rename(name_one) == 'ru-hexlet-io-courses'
+    assert rename(name_two) == 'ru-hexlet-io-courses'
+    assert rename(name_three) == 'ru-hexlet-io-courses-html'
