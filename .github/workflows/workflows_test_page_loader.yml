@@ -8,4 +8,4 @@ jobs:
       - name: Step 1
         run: |
           pip install poetry
-          make test
+          make tests
