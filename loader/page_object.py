@@ -1,17 +1,10 @@
 """page_object module."""
-import logging
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 
 from loader.data_recipient import get_data
 from loader.renamer import rename_to_html
-
-logging.basicConfig(filename='report.log', filemode='w', level=logging.INFO)
-
-TEXT_IMG = 'Downloading images'
-TEXT_LINKS = 'Downloading links'
-TEXT_SCRIPTS = 'Downloading scripts'
 
 
 def get_link_from_tag(content_html, source, tag, netloc):
