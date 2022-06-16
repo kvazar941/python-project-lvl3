@@ -6,8 +6,20 @@ from loader.data_recipient import get_data
 from loader.file_reader import read_file
 from loader.file_writer import write_file
 
+ERROR = "Cannot create directory '{0}'."
+
 
 def download_file(link, way_to_file):
+    """
+    Upload the file from the link to the file.
+
+    Args:
+        link: str
+        way_to_file: str
+
+    Returns:
+        recorded file
+    """
     if os.path.exists(way_to_file):
         if get_data(link).content == read_file(way_to_file, 'rb'):
             return
@@ -15,6 +27,16 @@ def download_file(link, way_to_file):
 
 
 def download_html(way_to_file, cont):
+    """
+    Record the content from to the file.
+
+    Args:
+        cont: str
+        way_to_file: str
+
+    Returns:
+        recorded file
+    """
     if os.path.exists(way_to_file):
         if cont == read_file(way_to_file, 'rb'):
             return
@@ -22,15 +44,26 @@ def download_html(way_to_file, cont):
 
 
 def make_directory(way):
+    """
+    Make directory to way.
+
+    Args:
+        way: str
+
+    Returns:
+        created directory or exit of programm
+    """
+    text_explanation = '\n'.join([
+        'Check the permissions on the path to the directory.',
+        "If it's a network drive,",
+        'check if the drive is accessible over the network.',
+        'The program terminates, the page and resource is not loaded.',
+    ])
     try:
         if os.path.exists(way):
             return
         else:
             os.mkdir(way)
     except Exception:
-        print("Cannot create directory '{0}'.".format(way))
-        print('Check the permissions on the path to the directory.')
-        print("If it's a network drive,")
-        print('check if the drive is accessible over the network.')
-        print('The program terminates, the page and resource is not loaded.')
+        print(''.join([ERROR.format(way), text_explanation]))
         sys.exit(1)

@@ -8,16 +8,22 @@ from loader.renamer import rename_to_html
 
 
 def get_link_from_tag(content_html, source, tag, netloc):
+    """
+    Get links from tags 'tag' containing attributes 'source'.
+
+    Args:
+        content_html: str
+        source: str
+        tag: str
+        netloc: str
+
+    Returns:
+        list
+    """
     soup = BeautifulSoup(content_html, 'html.parser')
     list_tags = soup.find_all(tag)
     links = [atr[source] for atr in list_tags if atr.get(source)]
-    list_result = []
-    for link in links:
-        if urlparse(link).netloc == netloc:
-            list_result.append(link)
-        if urlparse(link).netloc == '':
-            list_result.append(link)
-    return list_result
+    return [link for link in links if urlparse(link).netloc in {netloc, ''}]
 
 
 class Page():

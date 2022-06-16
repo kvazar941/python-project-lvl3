@@ -17,6 +17,15 @@ def log(message):
 
 
 def create_logger(directory):
+    """
+    Create logger.
+
+    Args:
+        directory: str
+
+    Returns:
+        logger object
+    """
     logger = logging.getLogger('log')
     logger.setLevel(logging.DEBUG)
     fi = logging.FileHandler(''.join([directory, NAME_REPORT_INFO]))

@@ -3,10 +3,19 @@ import sys
 
 import requests
 
-TEXT_ERROR = 'The resource "{0}" is not available.'
+ERROR = 'The resource "{0}" is not available.'
 
 
 def get_data(link):
+    """
+    Get data by link.
+
+    Args:
+        link: str
+
+    Returns:
+        requests object or exit of programm
+    """
     text_explanation = '\n'.join([
         'Check the network connection.',
         'Check availability of the resource or page.',
@@ -15,6 +24,6 @@ def get_data(link):
     try:
         link_data = requests.get(link)
     except Exception:
-        print(''.join([TEXT_ERROR.format(link), text_explanation]))
+        print(''.join([ERROR.format(link), text_explanation]))
         sys.exit(1)
     return link_data

@@ -1,6 +1,8 @@
 """FIle writer module."""
 import sys
 
+ERROR = "Cannot create file '{0}' at the specified path."
+
 
 def write_file(way, content_file, mode='w+'):
     """
@@ -11,14 +13,16 @@ def write_file(way, content_file, mode='w+'):
         content_file: any
         mode: str
     """
+    text_explanation = '\n'.join([
+        'Check the permissions on the path to the file.',
+        "If it's a network drive,",
+        'check if the drive is accessible over the network.',
+        'The program terminates.',
+        'The page and resource is not loaded.',
+    ])
     try:
         with open(way, mode) as file_name:
             file_name.write(content_file)
     except Exception:
-        print("Cannot create file '{0}' at the specified path.".format(way))
-        print('Check the permissions on the path to the file.')
-        print("If it's a network drive,")
-        print('check if the drive is accessible over the network.')
-        print('The program terminates.')
-        print('The page and resource is not loaded.')
+        print(''.join([ERROR.format(way), text_explanation]))
         sys.exit(1)
