@@ -14,6 +14,5 @@ def test_get_sourses(requests_mock):
     with tempfile.TemporaryDirectory() as tmpdirname:
         way_result = '/'.join([tmpdirname, 'ru-hexlet-io-assets-menu.css'])
         assert not os.path.exists(way_result)
-        result_dict = {'https://ru.hexlet.io/assets/menu.css': way_result}
-        assert get_sourses(test_list, tmpdirname, 'TEXT') == result_dict
+        get_sourses(test_list, tmpdirname, 'texst')
         assert os.path.exists(way_result)
