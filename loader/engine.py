@@ -9,17 +9,17 @@ from loader.page_object import Page
 from loader.renamer import rename_to_dir, rename_to_file
 
 TEXT_IMG = 'Downloading images'
-TEXT_LINKS = 'Downloading links'
-TEXT_SCRIPT = 'Downloading scripts'
+TEXT_LINK = 'Downloading source of links'
+TEXT_SCRIPT = 'Downloading source of scripts'
 
 
-def get_full_link(link, short_link):
-    url_link = urlparse(link)
+def get_full_link(url, short_link):
+    url_link = urlparse(url)
     url_short = urlparse(short_link)
     return url_short._replace(scheme=url_link.scheme, netloc=url_link.netloc)
 
 
-def restore_all_links(url, links):
+def restore_links(url, links):
     return list(map(lambda link: urlunparse(get_full_link(url, link)), links))
 
 
@@ -32,10 +32,14 @@ def get_sourses(list_links, directory, text_progress):
         directory: str
         text_progress: str
     """
+    log('create a directory "{0}".'.format(directory))
     make_directory(directory)
+    log('directory "{0}" created.'.format(directory))
     with Bar(text_progress, max=len(list_links)) as progress_bar:
         for link in list_links:
+            log('downloading file "{0}".'.format(link))
             download_file(link, rename_to_file(directory, link))
+            log('file "{0}" download.'.format(link))
             progress_bar.next()
 
 
@@ -56,25 +60,34 @@ def changed_link(dict_changed, content_html):
     return new_content
 
 
-def filter_links(list_links, url, dir_, progress_text, content_html):
-    if list_links:
-        netloc = urlparse(url).netloc
-        link = filter(lambda link: urlparse(link).netloc == netloc, list_links)
-        get_sourses(restore_all_links(url, link), dir_, progress_text)
-        replased = {link: rename_to_file(dir_, link) for link in list_links}
-        return changed_link(replased, content_html)
+def filter_netloc(list_links, url):
+    netloc = urlparse(url).netloc
+    return filter(lambda link: urlparse(link).netloc == netloc, list_links)
 
 
 def load_one_page(url, way):
+    """
+    Load the page and its resources..
+
+    Args:
+        url: str
+        way: str
+
+    Returns:
+        str
+    """
     page = Page(url)
-    dir_ = way + rename_to_dir(page.url)
-    text_page = page.content_url()
+    dir_ = ''.join([way, rename_to_dir(page.url)])
+    texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
-    texsts = [TEXT_IMG, TEXT_LINKS, TEXT_SCRIPT]
-    for list_, texst in zip(lists, texsts):
-        filter_links(list_, url, dir_, texst, text_page)
+    for list_, text in zip(lists, texts):
+        if list_:
+            links = restore_links(page.url, filter_netloc(list_, page.url))
+            get_sourses(links, dir_, text)
+            replased = {link: rename_to_file(dir_, link) for link in list_}
+            changed_link(replased, page.content_url())
     way_to_html = ''.join([way, page.valid_name()])
-    download_html(way_to_html, text_page)
+    download_html(way_to_html, page.content_url())
     return str(way_to_html)
 
 
