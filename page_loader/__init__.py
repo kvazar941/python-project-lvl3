@@ -1,4 +1,4 @@
 """init."""
-from page_loader.engine import page_load
+from page_loader.engine import download
 
-__all__ = ['page_load']
+__all__ = ['download']
