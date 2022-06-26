@@ -1,5 +1,5 @@
 """test_rename_to_file."""
-from loader.engine import rename_to_file
+from page_loader.engine import rename_to_file
 
 
 def test_rename_to_file():

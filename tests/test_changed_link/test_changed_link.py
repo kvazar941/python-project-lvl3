@@ -1,6 +1,6 @@
 """test_changed_link."""
-from loader.engine import changed_link
-from loader.file_reader import read_file
+from page_loader.engine import changed_link
+from page_loader.file_reader import read_file
 
 TEST_CONTENT = read_file('tests/test_changed_link/fixtures/original_file.html')
 RESULT_RUN = read_file('tests/test_changed_link/fixtures/result_file.html')

@@ -3,10 +3,10 @@ from urllib.parse import urlparse, urlunparse
 
 from progress.bar import Bar
 
-from loader.downloader import download_file, download_html, make_directory
-from loader.logger import log
-from loader.page_object import Page
-from loader.renamer import rename_to_dir, rename_to_file
+from page_loader.downloader import download_file, download_html, make_directory
+from page_loader.logger import log
+from page_loader.page_object import Page
+from page_loader.renamer import rename_to_dir, rename_to_file
 
 TEXT_IMG = 'Downloading images'
 TEXT_LINK = 'Downloading source of links'
@@ -20,7 +20,7 @@ def get_full_link(url, short_link):
 
 
 def restore_links(url, links):
-    return list(map(lambda link: urlunparse(get_full_link(url, link)), links))
+    return [urlunparse(get_full_link(url, link)) for link in links]
 
 
 def get_sourses(list_links, directory, text_progress):

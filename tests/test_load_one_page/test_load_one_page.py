@@ -1,7 +1,7 @@
 """test_load_one_page."""
 import tempfile
 
-from loader.engine import load_one_page
+from page_loader.engine import load_one_page
 
 LINK = 'https://ru.hexlet.io/courses'
 RESEIVED_CODE = 200

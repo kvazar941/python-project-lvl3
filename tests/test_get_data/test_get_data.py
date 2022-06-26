@@ -1,5 +1,5 @@
 """test_get_data."""
-from loader.data_recipient import get_data
+from page_loader.data_recipient import get_data
 
 LINK = 'https://ru.hexlet.io/courses'
 RESEIVED_CODE = 200

@@ -5,7 +5,7 @@ description = ""
 authors = ["Sergey <kvazar941@gmail.com>"]
 repository = "github.com/kvazar941/python-project-lvl3"
 packages = [
-    { include = "loader" },
+    { include = "page_loader" },
 ]
 
 [tool.poetry.dependencies]
@@ -14,7 +14,7 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts] 
-page-loader = "loader.scripts.page_loader:download"
+page-loader = "page_loader.scripts.page_loader:download"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

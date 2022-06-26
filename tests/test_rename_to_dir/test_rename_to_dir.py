@@ -1,5 +1,5 @@
 """test_rename_to_dir."""
-from loader.engine import rename_to_dir
+from page_loader.engine import rename_to_dir
 
 
 def test_rename_to_dir():

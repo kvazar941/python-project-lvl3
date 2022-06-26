@@ -2,7 +2,7 @@
 import os
 import tempfile
 
-from loader.engine import make_directory
+from page_loader.engine import make_directory
 
 DIRECTORY = 'test_directory'
 

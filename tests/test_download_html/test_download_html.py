@@ -2,8 +2,8 @@
 import os
 import tempfile
 
-from loader.downloader import download_html
-from loader.file_reader import read_file
+from page_loader.downloader import download_html
+from page_loader.file_reader import read_file
 
 TEST_NAME = 'test_file.html'
 

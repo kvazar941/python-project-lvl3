@@ -1,6 +1,6 @@
 """test_get_link_from_tag."""
-from loader.file_reader import read_file
-from loader.page_object import get_link_from_tag
+from page_loader.file_reader import read_file
+from page_loader.page_object import get_link_from_tag
 
 TEST_CONTENT = 'tests/test_get_link_from_tag/fixtures/test_content.html'
 NETLOC = 'ru.hexlet.io'

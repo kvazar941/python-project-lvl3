@@ -2,7 +2,7 @@
 import os
 import tempfile
 
-from loader.engine import get_sourses
+from page_loader.engine import get_sourses
 
 CODE = 200
 INTERCEPTED_LINK = 'https://ru.hexlet.io/assets/menu.css'

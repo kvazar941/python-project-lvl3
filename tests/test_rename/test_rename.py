@@ -1,5 +1,5 @@
 """test_rename."""
-from loader.renamer import rename
+from page_loader.renamer import rename
 
 
 def test_rename():

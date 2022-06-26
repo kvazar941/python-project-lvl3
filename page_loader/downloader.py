@@ -2,9 +2,9 @@
 import os
 import sys
 
-from loader.data_recipient import get_data
-from loader.file_reader import read_file
-from loader.file_writer import write_file
+from page_loader.data_recipient import get_data
+from page_loader.file_reader import read_file
+from page_loader.file_writer import write_file
 
 ERROR = "Cannot create directory '{0}'."
 

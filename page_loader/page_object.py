@@ -3,8 +3,8 @@ from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 
-from loader.data_recipient import get_data
-from loader.renamer import rename_to_html
+from page_loader.data_recipient import get_data
+from page_loader.renamer import rename_to_html
 
 
 def get_link_from_tag(content_html, source, tag, netloc):

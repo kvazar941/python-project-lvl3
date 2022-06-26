@@ -2,8 +2,8 @@
 import os
 import tempfile
 
-from loader.downloader import download_file
-from loader.file_reader import read_file
+from page_loader.downloader import download_file
+from page_loader.file_reader import read_file
 
 NAME = 'downloaded_file.css'
 SOURCE_ONE = 'https://ru.hexlet.io/courses/assets/application.css'

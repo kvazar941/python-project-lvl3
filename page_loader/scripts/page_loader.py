@@ -1,7 +1,7 @@
 #!/usr/bin/env/python3
 """Module page_loader."""
-from loader.cli import argument_handing
-from loader.engine import page_load
+from page_loader.cli import argument_handing
+from page_loader.engine import page_load
 
 
 def download():
