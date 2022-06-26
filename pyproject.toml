@@ -11,6 +11,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.8"
 progress = "^1"
+beautifulsoup4 = "^4.1"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.15.3"
