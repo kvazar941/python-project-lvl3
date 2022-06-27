@@ -2,6 +2,8 @@
 import requests
 
 ERROR = 'The resource "{0}" is not available.'
+CODE_ERROR = 404
+CODE_ERROR2 = 500
 
 
 def get_data(link):
@@ -19,9 +21,10 @@ def get_data(link):
         'Check availability of the resource or page.',
         'The program terminates, the page and resource is not loaded.',
     ])
+    assert requests.get(link) != CODE_ERROR
+    assert requests.get(link) != CODE_ERROR2
     try:
         link_data = requests.get(link)
-    except Exception:
-        print(''.join([ERROR.format(link), text_explanation]))
-        raise ConnectionError
+    except ConnectionError:
+        raise ConnectionError(''.join([ERROR.format(link), text_explanation]))
     return link_data

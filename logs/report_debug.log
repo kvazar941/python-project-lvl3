@@ -1,0 +1,132 @@
+2022-06-27 23:12:33,646 - log - INFO - create a directory "/tmp/tmpik8ryug0".
+2022-06-27 23:12:33,647 - log - DEBUG - create a directory "/tmp/tmpik8ryug0".
+2022-06-27 23:12:33,647 - log - INFO - directory "/tmp/tmpik8ryug0" created.
+2022-06-27 23:12:33,647 - log - INFO - directory "/tmp/tmpik8ryug0" created.
+2022-06-27 23:12:33,647 - log - DEBUG - directory "/tmp/tmpik8ryug0" created.
+2022-06-27 23:12:33,647 - log - DEBUG - directory "/tmp/tmpik8ryug0" created.
+2022-06-27 23:12:33,647 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:12:33,647 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:12:33,647 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:12:33,648 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:12:33,648 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:12:33,648 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:12:33,649 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:12:33,649 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,742 - log - INFO - create a directory "/tmp/tmpbwgebstz".
+2022-06-27 23:13:20,743 - log - DEBUG - create a directory "/tmp/tmpbwgebstz".
+2022-06-27 23:13:20,743 - log - INFO - directory "/tmp/tmpbwgebstz" created.
+2022-06-27 23:13:20,743 - log - INFO - directory "/tmp/tmpbwgebstz" created.
+2022-06-27 23:13:20,743 - log - DEBUG - directory "/tmp/tmpbwgebstz" created.
+2022-06-27 23:13:20,743 - log - DEBUG - directory "/tmp/tmpbwgebstz" created.
+2022-06-27 23:13:20,743 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:13:20,743 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:13:20,743 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:13:20,744 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:13:20,744 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:13:20,744 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:13:20,745 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,745 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,745 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,745 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,746 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,746 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,746 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:13:20,746 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,853 - log - INFO - create a directory "/tmp/tmpe4gci_4_".
+2022-06-27 23:17:36,853 - log - DEBUG - create a directory "/tmp/tmpe4gci_4_".
+2022-06-27 23:17:36,854 - log - INFO - directory "/tmp/tmpe4gci_4_" created.
+2022-06-27 23:17:36,854 - log - INFO - directory "/tmp/tmpe4gci_4_" created.
+2022-06-27 23:17:36,854 - log - DEBUG - directory "/tmp/tmpe4gci_4_" created.
+2022-06-27 23:17:36,854 - log - DEBUG - directory "/tmp/tmpe4gci_4_" created.
+2022-06-27 23:17:36,854 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:17:36,854 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:17:36,854 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:17:36,854 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:17:36,854 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:17:36,854 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:17:36,857 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:17:36,857 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,511 - log - INFO - create a directory "/tmp/tmphh44c8j1".
+2022-06-27 23:18:32,511 - log - DEBUG - create a directory "/tmp/tmphh44c8j1".
+2022-06-27 23:18:32,511 - log - INFO - directory "/tmp/tmphh44c8j1" created.
+2022-06-27 23:18:32,511 - log - INFO - directory "/tmp/tmphh44c8j1" created.
+2022-06-27 23:18:32,511 - log - DEBUG - directory "/tmp/tmphh44c8j1" created.
+2022-06-27 23:18:32,511 - log - DEBUG - directory "/tmp/tmphh44c8j1" created.
+2022-06-27 23:18:32,511 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:18:32,511 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:18:32,511 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:18:32,512 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:18:32,512 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:18:32,512 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:18:32,514 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,514 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,514 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,514 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,515 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,515 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,515 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:18:32,515 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,898 - log - INFO - create a directory "/tmp/tmp7_e1csno".
+2022-06-27 23:19:42,898 - log - DEBUG - create a directory "/tmp/tmp7_e1csno".
+2022-06-27 23:19:42,898 - log - INFO - directory "/tmp/tmp7_e1csno" created.
+2022-06-27 23:19:42,898 - log - INFO - directory "/tmp/tmp7_e1csno" created.
+2022-06-27 23:19:42,898 - log - DEBUG - directory "/tmp/tmp7_e1csno" created.
+2022-06-27 23:19:42,898 - log - DEBUG - directory "/tmp/tmp7_e1csno" created.
+2022-06-27 23:19:42,898 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:19:42,898 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:19:42,898 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:19:42,899 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:19:42,899 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:19:42,899 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:19:42,901 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,901 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,901 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,901 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,902 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,902 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,902 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:19:42,902 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:20:58,574 - log - INFO - create a directory "/tmp/tmp302yrg0c".
+2022-06-27 23:20:58,574 - log - DEBUG - create a directory "/tmp/tmp302yrg0c".
+2022-06-27 23:20:58,575 - log - INFO - directory "/tmp/tmp302yrg0c" created.
+2022-06-27 23:20:58,575 - log - INFO - directory "/tmp/tmp302yrg0c" created.
+2022-06-27 23:20:58,575 - log - DEBUG - directory "/tmp/tmp302yrg0c" created.
+2022-06-27 23:20:58,575 - log - DEBUG - directory "/tmp/tmp302yrg0c" created.
+2022-06-27 23:20:58,575 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:20:58,575 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:20:58,575 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:20:58,575 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:20:58,575 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:20:58,575 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,539 - log - INFO - create a directory "/tmp/tmpi9lo28x9".
+2022-06-27 23:21:14,539 - log - DEBUG - create a directory "/tmp/tmpi9lo28x9".
+2022-06-27 23:21:14,540 - log - INFO - directory "/tmp/tmpi9lo28x9" created.
+2022-06-27 23:21:14,540 - log - INFO - directory "/tmp/tmpi9lo28x9" created.
+2022-06-27 23:21:14,540 - log - DEBUG - directory "/tmp/tmpi9lo28x9" created.
+2022-06-27 23:21:14,540 - log - DEBUG - directory "/tmp/tmpi9lo28x9" created.
+2022-06-27 23:21:14,540 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,540 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,540 - log - INFO - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,540 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,540 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,540 - log - DEBUG - downloading file "https://ru.hexlet.io/assets/menu.css".
+2022-06-27 23:21:14,544 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,544 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,544 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,544 - log - INFO - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,545 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,545 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,545 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.
+2022-06-27 23:21:14,545 - log - DEBUG - file "https://ru.hexlet.io/assets/menu.css" download.

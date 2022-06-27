@@ -72,3 +72,10 @@ class Page():
     def links_script(self):
         netloc = self.get_netloc()
         return get_link_from_tag(self.content_url(), 'src', 'script', netloc)
+
+    def all_links(self):
+        links_all = []
+        links_all.extend(self.links_img())
+        links_all.extend(self.links_link())
+        links_all.extend(self.links_script())
+        return links_all
