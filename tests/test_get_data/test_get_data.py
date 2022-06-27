@@ -3,7 +3,7 @@ from page_loader.data_recipient import get_data
 
 LINK = 'https://ru.hexlet.io/courses'
 RESEIVED_CODE = 200
-RESEIVED_CODE_ERROR = 300
+RESEIVED_CODE_ERROR = 404
 
 
 def test_get_data(requests_mock):

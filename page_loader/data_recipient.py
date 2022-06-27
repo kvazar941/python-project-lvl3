@@ -2,8 +2,8 @@
 import requests
 
 ERROR = 'The resource "{0}" is not available.'
-CODE_ERROR = 404
-CODE_ERROR2 = 500
+CODE_ERROR = '<Response [404]>'
+CODE_ERROR2 = '<Response [500]>'
 
 
 def get_data(link):
