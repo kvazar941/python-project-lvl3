@@ -1,6 +1,5 @@
 """downloader module."""
 import os
-import sys
 
 from page_loader.data_recipient import get_data
 from page_loader.file_reader import read_file
@@ -66,4 +65,4 @@ def make_directory(way):
             os.mkdir(way)
     except Exception:
         print(''.join([ERROR.format(way), text_explanation]))
-        sys.exit(1)
+        raise PermissionError

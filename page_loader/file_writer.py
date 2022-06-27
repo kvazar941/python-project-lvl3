@@ -1,6 +1,4 @@
 """FIle writer module."""
-import sys
-
 ERROR = "Cannot create file '{0}' at the specified path."
 
 
@@ -23,6 +21,5 @@ def write_file(way, content_file, mode='w+'):
     try:
         with open(way, mode) as file_name:
             file_name.write(content_file)
-    except Exception:
-        print(''.join([ERROR.format(way), text_explanation]))
-        sys.exit(1)
+    except OSError:
+        raise OSError(''.join([ERROR.format(way), text_explanation]))

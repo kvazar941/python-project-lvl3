@@ -1,6 +1,4 @@
 """data_recipient module."""
-import sys
-
 import requests
 
 ERROR = 'The resource "{0}" is not available.'
@@ -25,5 +23,5 @@ def get_data(link):
         link_data = requests.get(link)
     except Exception:
         print(''.join([ERROR.format(link), text_explanation]))
-        sys.exit(1)
+        raise ConnectionError
     return link_data
