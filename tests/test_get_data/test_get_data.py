@@ -1,4 +1,6 @@
 """test_get_data."""
+import pytest
+
 from page_loader.data_recipient import get_data
 
 LINK = 'https://ru.hexlet.io/courses'
@@ -14,5 +16,5 @@ def test_get_data(requests_mock):
 
 def test_get_data_errors(requests_mock):
     requests_mock.get(LINK, status_code=RESEIVED_CODE_ERROR, text='content')
-    assert get_data(LINK).status_code == RESEIVED_CODE_ERROR
-    assert get_data(LINK).text == 'content'
+    with pytest.raises(Exception):
+        get_data(LINK)
