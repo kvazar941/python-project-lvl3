@@ -12,6 +12,9 @@ def read_file(way_to_file, mode='r'):
     Returns:
         str
     """
-    with open(way_to_file, mode) as file_name:
-        file_content = file_name.read()
+    try:
+        with open(way_to_file, mode) as file_name:
+            file_content = file_name.read()
+    except Exception:
+        raise OSError('error read file')
     return file_content

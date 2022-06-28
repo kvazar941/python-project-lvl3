@@ -59,10 +59,7 @@ def make_directory(way):
         'The program terminates, the page and resource is not loaded.',
     ])
     try:
-        if os.path.exists(way):
-            return
-        else:
+        if not os.path.exists(way):
             os.mkdir(way)
     except Exception:
-        print(''.join([ERROR.format(way), text_explanation]))
-        raise PermissionError
+        raise OSError(''.join([ERROR.format(way), text_explanation]))

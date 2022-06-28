@@ -21,5 +21,5 @@ def write_file(way, content_file, mode='w+'):
     try:
         with open(way, mode) as file_name:
             file_name.write(content_file)
-    except OSError:
+    except Exception:
         raise OSError(''.join([ERROR.format(way), text_explanation]))
