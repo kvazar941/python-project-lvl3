@@ -1,4 +1,5 @@
 """engine module."""
+import os
 from urllib.parse import urlparse, urlunparse
 
 from progress.bar import Bar
@@ -93,6 +94,10 @@ def load_one_page(url, way):
 
 def download(url_page, way_to_dir):
     log('program launch')
-    work_result = load_one_page(url_page, way_to_dir)
+    work_result = ''
+    if os.path.exists(way_to_dir):
+        work_result = load_one_page(url_page, way_to_dir)
+    else:
+        raise PermissionError('no directory')
     log('program shutdown')
     return work_result
