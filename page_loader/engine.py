@@ -1,5 +1,4 @@
 """engine module."""
-import os
 from urllib.parse import urlparse, urlunparse
 
 from progress.bar import Bar
