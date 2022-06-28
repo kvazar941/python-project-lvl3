@@ -95,9 +95,13 @@ def load_one_page(url, way):
 def download(url_page, way_to_dir):
     log('program launch')
     work_result = ''
-    if os.path.exists(way_to_dir):
+    try:
         work_result = load_one_page(url_page, way_to_dir)
-    else:
+    except PermissionError:
         raise PermissionError('no directory')
+    except OSError:
+        raise OSError('no directory')
+    except Exception:
+        raise OSError('exception')
     log('program shutdown')
     return work_result
