@@ -61,4 +61,4 @@ def make_directory(way):
     try:
         os.mkdir(way)
     except FileExistsError:
-        pass
+        raise FileExistsError(text_explanation)
