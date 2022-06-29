@@ -9,7 +9,7 @@ NAME_REPORT_INFO = 'report_info.log'
 NAME_REPORT_DEBUG = 'report_debug.log'
 
 
-def create_logger(directory='logs/'):
+def create_logger(directory='reports/'):
     """
     Create logger.
 

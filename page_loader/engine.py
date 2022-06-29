@@ -88,7 +88,7 @@ def load_one_page(url, way):
 
 
 def download(url_page, way_to_dir):
-    logger = create_logger(''.join([way_to_dir, '/logs/']))
+    logger = create_logger(''.join([way_to_dir, '/reports/']))
     logger.debug('program launch')
     work_result = load_one_page(url_page, way_to_dir)
     logger.debug('program shutdown')
