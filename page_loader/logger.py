@@ -1,11 +1,7 @@
 """logging module."""
 import logging
 
-from page_loader.downloader import make_directory
-
 LOGGER_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-DIRECTORY_LOGS = 'logs/'
-NAME_REPORT_INFO = 'report_info.log'
 NAME_REPORT_DEBUG = 'report_debug.log'
 
 
@@ -30,6 +26,5 @@ def create_logger(directory):
 
 
 def log(message, directory='logs/'):
-    make_directory(directory)
     logger = create_logger(directory)
     logger.debug(message)
