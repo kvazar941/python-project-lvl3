@@ -92,7 +92,6 @@ def load_one_page(url, way):
 
 
 def download(url_page, way_to_dir):
-    make_directory('{0}logs/'.format(way_to_dir))
     logging.info('program launch')
     work_result = load_one_page(url_page, way_to_dir)
     logging.info('program shutdown')
