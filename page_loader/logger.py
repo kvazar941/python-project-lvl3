@@ -21,7 +21,6 @@ def create_logger(directory):
     """
     logger = logging.getLogger('log')
     logger.setLevel(logging.DEBUG)
-    make_directory(directory)
     fd = logging.FileHandler(''.join([directory, NAME_REPORT_DEBUG]))
     fd.setLevel(logging.DEBUG)
     formatter = logging.Formatter(LOGGER_FORMAT)
@@ -31,5 +30,6 @@ def create_logger(directory):
 
 
 def log(message, directory='logs/'):
+    make_directory(directory)
     logger = create_logger(directory)
     logger.debug(message)

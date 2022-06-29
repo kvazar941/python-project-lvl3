@@ -4,7 +4,7 @@ from urllib.parse import urlparse, urlunparse
 from progress.bar import Bar
 
 from page_loader.downloader import download_file, download_html, make_directory
-from page_loader.logger import create_logger
+from page_loader.logger import log
 from page_loader.page_object import Page
 from page_loader.renamer import rename_to_dir, rename_to_file
 
@@ -32,10 +32,14 @@ def get_sourses(list_links, directory, text_progress):
         directory: str
         text_progress: str
     """
+    log('create a directory "{0}".'.format(directory))
     make_directory(directory)
+    log('directory "{0}" created.'.format(directory))
     with Bar(text_progress, max=len(list_links)) as progress_bar:
         for link in list_links:
+            log('downloading file "{0}".'.format(link))
             download_file(link, rename_to_file(directory, link))
+            log('file "{0}" download.'.format(link))
             progress_bar.next()
 
 
@@ -88,8 +92,7 @@ def load_one_page(url, way):
 
 
 def download(url_page, way_to_dir):
-    logger = create_logger(''.join([way_to_dir, '/reports/']))
-    logger.debug('program launch')
+    log('program launch')
     work_result = load_one_page(url_page, way_to_dir)
-    logger.debug('program shutdown')
+    log('program shutdown')
     return work_result

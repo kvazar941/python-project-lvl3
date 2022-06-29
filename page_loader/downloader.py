@@ -52,13 +52,7 @@ def make_directory(way):
     Returns:
         created directory or exit of programm
     """
-    text_explanation = '\n'.join([
-        'Check the permissions on the path to the directory.',
-        "If it's a network drive,",
-        'check if the drive is accessible over the network.',
-        'The program terminates, the page and resource is not loaded.',
-    ])
     try:
         os.mkdir(way)
     except FileExistsError:
-        raise FileExistsError(text_explanation + way)
+        raise FileExistsError('The directory "{0}" exists.'.format(way))
