@@ -94,7 +94,7 @@ def load_one_page(url, way):
 
 def download(url_page, way_to_dir):
     log('program launch')
-    logging.info('program launch')
+    logging.info('The download path was obtained: "{0}"'.format(way_to_dir))
     work_result = load_one_page(url_page, way_to_dir)
     logging.info('program shutdown')
     log('program shutdown')
