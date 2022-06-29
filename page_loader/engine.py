@@ -94,12 +94,12 @@ def load_one_page(url, way):
 
 
 def download(url_page, way_to_dir):
-    logging.info('program launch')
+    log('program launch')
     if os.path.exists(way_to_dir):
         logging.info('The download path was obtained: "{0}"'.format(way_to_dir))
         work_result = load_one_page(url_page, way_to_dir)
     else:
         logging.info('File Exists: "{0}"'.format(way_to_dir))
         raise FileExistsError('FileExistsError')
-    logging.info('program shutdown')
+    log('program shutdown')
     return work_result
