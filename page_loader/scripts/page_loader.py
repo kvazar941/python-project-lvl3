@@ -1,12 +1,17 @@
 #!/usr/bin/env/python3
 """Module page_loader."""
+import sys
+
 from page_loader.cli import argument_handing
 from page_loader.engine import download
 
 
 def main():
     args = argument_handing()
-    print(download(args.url_page, args.output))
+    try:
+        print(download(args.url_page, args.output))
+    except FileExistsError:
+        sys.exit(1)
 
 
 if __name__ == '__main__':
