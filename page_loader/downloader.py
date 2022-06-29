@@ -1,4 +1,5 @@
 """downloader module."""
+import logging
 import os
 
 from page_loader.data_recipient import get_data
@@ -55,4 +56,5 @@ def make_directory(way):
     try:
         os.mkdir(way) 
     except FileExistsError:
+        logging.info('The directory "{0}" exists.'.format(way))
         raise FileExistsError('The directory "{0}" exists.'.format(way))
