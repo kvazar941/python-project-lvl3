@@ -24,5 +24,5 @@ def test_make_directory_error():
         way_result = '/'.join([tmpdirname, DIRECTORY])
         os.mkdir(way_result)
         os.chmod(way_result, stat.S_ENFMT)
-        with pytest.raises(PermissionError):
-            make_directory('/'.join([tmpdirname, DIRECTORY2]))
+        with pytest.raises(FileExistsError):
+            make_directory(way_result)
