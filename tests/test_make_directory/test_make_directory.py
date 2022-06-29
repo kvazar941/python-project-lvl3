@@ -7,8 +7,8 @@ import pytest
 
 from page_loader.engine import make_directory
 
-DIRECTORY = 'test_directory'
-DIRECTORY2 = 'test_directory/test'
+DIRECTORY = 'test_directory/'
+DIRECTORY2 = 'test_directory/test/'
 
 
 def test_make_directory():
@@ -24,5 +24,5 @@ def test_make_directory_error():
         way_result = '/'.join([tmpdirname, DIRECTORY])
         os.mkdir(way_result)
         os.chmod(way_result, stat.S_ENFMT)
-        with pytest.raises(Exception):
+        with pytest.raises(PermissionError):
             make_directory('/'.join([tmpdirname, DIRECTORY2]))
