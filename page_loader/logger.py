@@ -1,6 +1,5 @@
 """logging module."""
 import logging
-import os
 
 from page_loader.downloader import make_directory
 
@@ -10,7 +9,7 @@ NAME_REPORT_INFO = 'report_info.log'
 NAME_REPORT_DEBUG = 'report_debug.log'
 
 
-def create_logger(directory):
+def create_logger(directory='logs/'):
     """
     Create logger.
 
@@ -22,6 +21,7 @@ def create_logger(directory):
     """
     logger = logging.getLogger('log')
     logger.setLevel(logging.DEBUG)
+    make_directory(directory)
     fd = logging.FileHandler(''.join([directory, NAME_REPORT_DEBUG]))
     fd.setLevel(logging.DEBUG)
     formatter = logging.Formatter(LOGGER_FORMAT)
@@ -30,8 +30,6 @@ def create_logger(directory):
     return logger
 
 
-def log(message):
-    if not os.path.exists(DIRECTORY_LOGS):
-        make_directory(DIRECTORY_LOGS)
-    logger = create_logger(DIRECTORY_LOGS)
+def log(message, directory='logs/'):
+    logger = create_logger(directory)
     logger.debug(message)
