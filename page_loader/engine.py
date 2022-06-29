@@ -34,6 +34,7 @@ def get_sourses(list_links, directory, text_progress):
     """
     logging.info('create a directory "{0}".'.format(directory))
     make_directory(directory)
+    make_directory(directory)
     logging.info('directory "{0}" created.'.format(directory))
     with Bar(text_progress, max=len(list_links)) as progress_bar:
         for link in list_links:
@@ -92,6 +93,7 @@ def load_one_page(url, way):
 
 
 def download(url_page, way_to_dir):
+    
     logging.info('program launch')
     work_result = load_one_page(url_page, way_to_dir)
     logging.info('program shutdown')

@@ -53,6 +53,6 @@ def make_directory(way):
         created directory or exit of programm
     """
     try:
-        os.mkdir(way)
+        os.mkdir(way) 
     except FileExistsError:
         raise FileExistsError('The directory "{0}" exists.'.format(way))
