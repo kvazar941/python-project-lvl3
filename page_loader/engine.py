@@ -1,5 +1,6 @@
 """engine module."""
 import logging
+import os
 from urllib.parse import urlparse, urlunparse
 
 import requests
@@ -99,7 +100,7 @@ def load_one_page(url, way):
     return str(way_to_html)
 
 
-def download(url_page, way_to_dir):
+def download(url_page, way_to_dir=None):
     logging.info('program launch')
     logging.info('The download path was obtained: "{0}"'.format(way_to_dir))
     expected_url = requests.get(url_page)
@@ -108,6 +109,10 @@ def download(url_page, way_to_dir):
         raise ConnectionError('"{0}" is not available.'.format(url_page))
     else:
         logging.error('"{0}" is available.'.format(url_page))
+    if way_to_dir is None:
+        logging.ERROR('"{0}" is None.'.format(way_to_dir))
+        way_to_dir = os.getcwd()
+        logging.INFO('"{0}" setted.'.format(way_to_dir))
     try:
         logging.info('run load one page')
         work_result = load_one_page(url_page, way_to_dir)
