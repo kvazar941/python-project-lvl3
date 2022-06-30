@@ -84,8 +84,8 @@ def load_one_page(url, way):
     dir_ = ''.join([way, rename_to_dir(page.url)])
     try:
         logging.info('create a directory "{0}".'.format(dir_))
-        os.mkdir(dir_)
-    except FileExitsError:
+        os.mkdir(way)
+    except FileExistsError:
         logging.info('directory "{0}" created.'.format(dir_))
         pass
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
