@@ -81,10 +81,11 @@ def load_one_page(url, way):
         str
     """
     page = Page(url)
-    dir_ = ''.join([way, rename_to_dir(page.url)])
+    dir_ = '/'.join([way, rename_to_dir(page.url)])
     try:
-        logging.info('create a directory "{0}".'.format(dir_))
+        logging.info('create a directory "{0}".'.format(way))
         os.mkdir(way)
+        logging.info('directory "{0}" created.'.format(dir_))
     except FileExistsError:
         logging.info('directory "{0}" created.'.format(dir_))
         pass
@@ -118,14 +119,11 @@ def download(url_page, way_to_dir=None):
     if way_to_dir is None:
         logging.ERROR('"{0}" is None.'.format(way_to_dir))
         way_to_dir = os.getcwd()
-        logging.INFO('"{0}" setted.'.format(way_to_dir))
+        logging.info('"{0}" setted.'.format(way_to_dir))
     if not os.path.exists(way_to_dir):
-        raise FileNotFoundError(ERROR.format(way_to_dir))
-    try:
-        logging.info('run load one page')
-        work_result = load_one_page(url_page, way_to_dir)
-    except FileNotFoundError:
         logging.info(ERROR.format(way_to_dir))
         raise FileNotFoundError(ERROR.format(way_to_dir))
+    logging.info('run load one page')
+    work_result = load_one_page(url_page, way_to_dir)
     logging.info('program shutdown')
     return work_result
