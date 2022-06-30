@@ -2,6 +2,7 @@
 import logging
 from urllib.parse import urlparse, urlunparse
 
+import requests
 from progress.bar import Bar
 
 from page_loader.downloader import download_file, download_html, make_directory
@@ -12,6 +13,7 @@ TEXT_IMG = 'Downloading images'
 TEXT_LINK = 'Downloading source of links'
 TEXT_SCRIPT = 'Downloading source of scripts'
 ERROR = 'The directory {0} does not exist'
+VALID_CODE = 200
 
 
 def get_full_link(url, short_link):
@@ -100,6 +102,12 @@ def load_one_page(url, way):
 def download(url_page, way_to_dir):
     logging.info('program launch')
     logging.info('The download path was obtained: "{0}"'.format(way_to_dir))
+    expected_url = requests.get(url_page)
+    if expected_url.status_code != VALID_CODE:
+        logging.error('"{0}" is not available.'.format(url_page))
+        raise ConnectionError('"{0}" is not available.'.format(url_page))
+    else:
+        logging.error('"{0}" is available.'.format(url_page))
     try:
         logging.info('run load one page')
         work_result = load_one_page(url_page, way_to_dir)
