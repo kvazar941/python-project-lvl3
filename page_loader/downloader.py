@@ -6,7 +6,7 @@ from page_loader.data_recipient import get_data
 from page_loader.file_reader import read_file
 from page_loader.file_writer import write_file
 
-ERROR = "Cannot create directory '{0}'."
+ERROR = 'Unable to create a directory {0}.'
 
 
 def download_file(link, way_to_file):
@@ -54,7 +54,7 @@ def make_directory(way):
         created directory or exit of programm
     """
     try:
-        os.mkdir(way) 
-    except FileExistsError:
-        logging.info('The directory "{0}" exists.'.format(way))
-        raise FileExistsError('The directory "{0}" exists.'.format(way))
+        os.mkdir(way)
+    except OSError:
+        logging.info(ERROR.format(way))
+        raise FileNotFoundError(ERROR.format(way))

@@ -1,5 +1,6 @@
 """logging module."""
 import logging
+
 from page_loader.downloader import make_directory
 
 LOGGER_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
