@@ -113,6 +113,8 @@ def download(url_page, way_to_dir=None):
         logging.ERROR('"{0}" is None.'.format(way_to_dir))
         way_to_dir = os.getcwd()
         logging.INFO('"{0}" setted.'.format(way_to_dir))
+    if not os.path.exists(way_to_dir):
+        raise FileNotFoundError(ERROR.format(way_to_dir))
     try:
         logging.info('run load one page')
         work_result = load_one_page(url_page, way_to_dir)
