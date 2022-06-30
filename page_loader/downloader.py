@@ -54,7 +54,12 @@ def make_directory(way):
         created directory or exit of programm
     """
     try:
-        os.mkdir(way)
-    except OSError:
+        if not os.path.exists(way):
+            logging.info('directory {0} not found'.format(way))
+            os.mkdir(way)
+            logging.info('directory {0} created'.format(way))
+        else:
+            logging.info('directory {0} found'.format(way))
+    except Exception:
         logging.info(ERROR.format(way))
         raise FileNotFoundError(ERROR.format(way))
