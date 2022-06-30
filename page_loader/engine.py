@@ -83,11 +83,16 @@ def load_one_page(url, way):
     lists = [page.links_img(), page.links_link(), page.links_script()]
     for list_, text in zip(lists, texts):
         if list_:
+            logging.info('restore_links')
             links = restore_links(page.url, filter_netloc(list_, page.url))
+            logging.info('get_sourses')
             get_sourses(links, dir_, text)
+            logging.info('replased')
             replased = {link: rename_to_file(dir_, link) for link in list_}
+            logging.info('changed_link')
             changed_link(replased, page.content_url())
     way_to_html = ''.join([way, page.valid_name()])
+    logging.info('download_html')
     download_html(way_to_html, page.content_url())
     return str(way_to_html)
 
@@ -96,6 +101,7 @@ def download(url_page, way_to_dir):
     logging.info('program launch')
     logging.info('The download path was obtained: "{0}"'.format(way_to_dir))
     try:
+        logging.info('run load one page')
         work_result = load_one_page(url_page, way_to_dir)
     except FileNotFoundError:
         logging.info(ERROR.format(way_to_dir))
