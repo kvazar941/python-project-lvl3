@@ -16,5 +16,6 @@ def test_get_sourses(requests_mock):
         dir_name = rename_to_dir('https://ru.hexlet.io/courses')
         way_to_dir = '/'.join([tmpdirname, dir_name])
         assert not os.path.exists(way_to_dir)
+        os.mkdir(way_to_dir)
         get_sourses(test_list, way_to_dir, 'texst')
         assert os.path.exists(way_to_dir)

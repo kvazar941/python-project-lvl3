@@ -12,6 +12,6 @@ def argument_handing():
         parser
     """
     parser = argparse.ArgumentParser(description='Load page')
-    parser.add_argument('url_page')
     parser.add_argument('-o', '--output', default='./', help=HELP)
+    parser.add_argument('url_page')
     return parser.parse_args()
