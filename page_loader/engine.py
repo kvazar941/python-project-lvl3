@@ -81,7 +81,7 @@ def load_one_page(url, way):
         str
     """
     page = Page(url)
-    dir_ = '/'.join([way, rename_to_dir(page.url)]
+    dir_ = '/'.join([way, rename_to_dir(page.url)])
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
     for list_, text in zip(lists, texts):
