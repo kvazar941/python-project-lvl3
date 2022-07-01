@@ -85,10 +85,10 @@ def load_one_page(url, way):
     try:
         logging.info('create a directory "{0}".'.format(way))
         os.mkdir(way)
-        logging.info('directory "{0}" created.'.format(dir_))
+        logging.info('directory "{0}" created.'.format(way))
     except FileExistsError:
-        logging.info('directory "{0}" created.'.format(dir_))
-        pass
+        logging.info('directory "{0}" not created.'.format(way))
+        raise FileExistsError('directory "{0}" not created.'.format(way))
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
     for list_, text in zip(lists, texts):
