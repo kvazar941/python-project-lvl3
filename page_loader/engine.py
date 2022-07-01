@@ -36,9 +36,9 @@ def get_sourses(list_links, directory, text_progress):
         directory: str
         text_progress: str
     """
-    #logging.info('create a directory "{0}".'.format(directory))
-    #make_directory(directory)
-    #logging.info('directory "{0}" created.'.format(directory))
+    logging.info('create a directory "{0}".'.format(directory))
+    make_directory(directory)
+    logging.info('directory "{0}" created.'.format(directory))
     with Bar(text_progress, max=len(list_links)) as progress_bar:
         for link in list_links:
             logging.info('downloading file "{0}".'.format(link))
@@ -81,14 +81,7 @@ def load_one_page(url, way):
         str
     """
     page = Page(url)
-    dir_ = '/'.join([way, rename_to_dir(page.url)])
-    try:
-        logging.info('create a directory "{0}".'.format(way))
-        os.mkdir(way)
-        logging.info('directory "{0}" created.'.format(way))
-    except FileExistsError:
-        logging.info('directory "{0}" not created.'.format(way))
-        raise FileExistsError('directory "{0}" not created.'.format(way))
+    dir_ = '/'.join([way, rename_to_dir(page.url)]
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
     for list_, text in zip(lists, texts):
@@ -123,6 +116,12 @@ def download(url_page, way_to_dir=None):
     if not os.path.exists(way_to_dir):
         logging.info(ERROR.format(way_to_dir))
         raise FileNotFoundError(ERROR.format(way_to_dir))
+    if way_to_dir in {'/sys', '/bin', '/tmp'}:
+        logging.info('write to directory {0} is not available'.format(way_to_dir))
+        raise OSError('write to directory {0} is not available'.format(way_to_dir))
+    if not os.path.isdir(way_to_dir):
+        logging.info('way {0} is not directory'.format(way_to_dir))
+        raise OSError('way {0} is not directory'.format(way_to_dir))
     logging.info('run load one page')
     work_result = load_one_page(url_page, way_to_dir)
     logging.info('program shutdown')
