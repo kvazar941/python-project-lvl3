@@ -94,7 +94,7 @@ def load_one_page(url, way):
             replased = {link: rename_to_file(dir_, link) for link in list_}
             logging.info('changed_link')
             changed_link(replased, page.content_url())
-    way_to_html = ''.join([way, page.valid_name()])
+    way_to_html = '/'.join([way, page.valid_name()])
     logging.info(f'download_html, way: {way_to_html}')
     download_html(way_to_html, page.content_url())
     logging.info('html downloaded')
