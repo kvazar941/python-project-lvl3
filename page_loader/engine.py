@@ -124,5 +124,7 @@ def download(url_page, way_to_dir=None):
         raise OSError('way {0} is not directory'.format(way_to_dir))
     logging.info('run load one page')
     work_result = load_one_page(url_page, way_to_dir)
+    logging.info('loaded one page')
+    logging.info(' '.join(os.listdir(way_to_dir)))
     logging.info('program shutdown')
     return work_result
