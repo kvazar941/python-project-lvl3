@@ -13,7 +13,6 @@ from page_loader.renamer import rename_to_dir, rename_to_file
 TEXT_IMG = 'Downloading images'
 TEXT_LINK = 'Downloading source of links'
 TEXT_SCRIPT = 'Downloading source of scripts'
-ERROR = 'The directory {0} does not exist'
 VALID_CODE = 200
 
 
@@ -24,6 +23,7 @@ def get_full_link(url, short_link):
 
 
 def restore_links(url, links):
+    logging.info('run restore_links')
     return [urlunparse(get_full_link(url, link)) for link in links]
 
 
@@ -36,6 +36,7 @@ def get_sourses(list_links, directory, text_progress):
         directory: str
         text_progress: str
     """
+    logging.debug('run get_sourses')
     logging.info('create a directory "{0}".'.format(directory))
     make_directory(directory)
     logging.info('directory "{0}" created.'.format(directory))
@@ -45,6 +46,7 @@ def get_sourses(list_links, directory, text_progress):
             download_file(link, rename_to_file(directory, link))
             logging.info('file "{0}" download.'.format(link))
             progress_bar.next()
+    logging.debug('get_sourses complete.')
 
 
 def changed_link(dict_changed, content_html):
@@ -58,6 +60,7 @@ def changed_link(dict_changed, content_html):
     Returns:
         str
     """
+    logging.info('run changed_link')
     new_content = content_html
     for link in dict_changed:
         new_content = new_content.replace(link, dict_changed[link])
@@ -80,52 +83,52 @@ def load_one_page(url, way):
     Returns:
         str
     """
+    logging.info('run load one page')
     page = Page(url)
     dir_ = '/'.join([way, rename_to_dir(page.url)])
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
     for list_, text in zip(lists, texts):
         if list_:
-            logging.info('restore_links')
             links = restore_links(page.url, filter_netloc(list_, page.url))
-            logging.info('get_sourses')
             get_sourses(links, dir_, text)
-            logging.info('replased')
             replased = {link: rename_to_file(dir_, link) for link in list_}
-            logging.info('changed_link')
             changed_link(replased, page.content_url())
     way_to_html = '/'.join([way, page.valid_name()])
     logging.info(f'download_html, way: {way_to_html}')
     download_html(way_to_html, page.content_url())
     logging.info('html downloaded')
+    logging.info('loaded one page')
     return str(way_to_html)
 
 
-def download(url_page, way_to_dir=None):
-    logging.info('program launch')
-    logging.info('The download path was obtained: "{0}"'.format(way_to_dir))
-    expected_url = requests.get(url_page)
+def verify_url(url):
+    expected_url = requests.get(url)
     if expected_url.status_code != VALID_CODE:
-        logging.error('"{0}" is not available.'.format(url_page))
-        raise ConnectionError('"{0}" is not available.'.format(url_page))
+        logging.error('"{0}" is not available.'.format(url))
+        raise ConnectionError('"{0}" is not available.'.format(url))
     else:
-        logging.error('"{0}" is available.'.format(url_page))
-    if way_to_dir is None:
-        logging.ERROR('"{0}" is None.'.format(way_to_dir))
-        way_to_dir = os.getcwd()
-        logging.info('"{0}" setted.'.format(way_to_dir))
-    if not os.path.exists(way_to_dir):
-        logging.info(ERROR.format(way_to_dir))
-        raise FileNotFoundError(ERROR.format(way_to_dir))
-    if way_to_dir in {'/sys', '/bin', '/tmp'}:
-        logging.info('write to directory {0} is not available'.format(way_to_dir))
-        raise OSError('write to directory {0} is not available'.format(way_to_dir))
-    if not os.path.isdir(way_to_dir):
-        logging.info('way {0} is not directory'.format(way_to_dir))
-        raise OSError('way {0} is not directory'.format(way_to_dir))
-    logging.info('run load one page')
+        logging.error('The url was obtained: "{0}"'.format(url))
+
+        
+def verify_way(way):
+    if not os.path.exists(way):
+        logging.info('The directory {0} does not exist'.format(way))
+        raise FileNotFoundError('The directory {0} does not exist'.format(way))
+    if way in {'/sys', '/bin', '/tmp'}:
+        logging.info('write to directory {0} is not available'.format(way))
+        raise OSError('write to directory {0} is not available'.format(way))
+    if not os.path.isdir(way):
+        logging.info('way {0} is not directory'.format(way))
+        raise OSError('way {0} is not directory'.format(way))
+    else:
+        logging.info('The download path was obtained: "{0}"'.format(way))
+
+
+def download(url_page, way_to_dir=os.getcwd()):
+    logging.info('program launch')
+    verify_url(url_page)
+    verify_way(way_to_dir)
     work_result = load_one_page(url_page, way_to_dir)
-    logging.info('loaded one page')
-    logging.info(' '.join(os.listdir(way_to_dir)))
     logging.info('program shutdown')
     return work_result
