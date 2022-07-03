@@ -25,7 +25,7 @@ def get_link_from_tag(content_html, source, tag, netloc):
     list_tags = soup.find_all(tag)
     links = [atr[source] for atr in list_tags if atr.get(source)]
     logging.info(' '.join(links))
-    logging.info(' '.join([urlparse(link).netloc for link in links]))
+    logging.info(' '.join([link for link in links if urlparse(link).netloc == '']))
     links_two = [link for link in links if urlparse(link).netloc == netloc or urlparse(link).netloc == '']
     return links_two
 
