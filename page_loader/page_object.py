@@ -1,4 +1,5 @@
 """page_object module."""
+import logging
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
@@ -23,8 +24,10 @@ def get_link_from_tag(content_html, source, tag, netloc):
     soup = BeautifulSoup(content_html, 'html.parser')
     list_tags = soup.find_all(tag)
     links = [atr[source] for atr in list_tags if atr.get(source)]
-    return [link for link in links if urlparse(link).netloc == netloc or not urlparse(link).netloc]
-
+    logging.info(' '.join(links))
+    logging.info(' '.join([urlparse(link).netloc for link in links])
+    links_two = [link for link in links if urlparse(link).netloc == netloc or urlparse(link).netloc == '']
+    return links_two
 
 class Page():
     """
