@@ -27,6 +27,7 @@ def get_link_from_tag(content_html, source, tag, netloc):
     logging.info(' '.join(links))
     logging.info(' '.join([link for link in links if urlparse(link).netloc == '']))
     links_two = [link for link in links if urlparse(link).netloc == netloc or urlparse(link).netloc == '']
+    logging.info(' '.join(links_two))
     return links_two
 
 class Page():
