@@ -23,7 +23,7 @@ def get_link_from_tag(content_html, source, tag, netloc):
     soup = BeautifulSoup(content_html, 'html.parser')
     list_tags = soup.find_all(tag)
     links = [atr[source] for atr in list_tags if atr.get(source)]
-    return [link for link in links if urlparse(link).netloc in {netloc, None}]
+    return [link for link in links if urlparse(link).netloc == netloc or not urlparse(link).netloc]
 
 
 class Page():
