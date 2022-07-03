@@ -69,7 +69,7 @@ def changed_link(dict_changed, content_html):
 
 def filter_netloc(list_links, url):
     netloc = urlparse(url).netloc
-    return filter(lambda link: urlparse(link).netloc == netloc, list_links)
+    return filter(lambda link: urlparse(link).netloc == netloc or urlparse(link).netloc == '', list_links)
 
 
 def load_one_page(url, way):
@@ -90,7 +90,9 @@ def load_one_page(url, way):
     lists = [page.links_img(), page.links_link(), page.links_script()]
     for list_, text in zip(lists, texts):
         if list_:
+            logging.info(' '.join(list_))
             links = restore_links(page.url, filter_netloc(list_, page.url))
+            logging.info(' '.join(links))
             get_sourses(links, dir_, text)
             replased = {link: rename_to_file(dir_, link) for link in list_}
             changed_link(replased, page.content_url())
