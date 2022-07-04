@@ -42,7 +42,7 @@ def download_html(way_to_file, cont):
         if cont == read_file(way_to_file, 'rb'):
             return
     soup = BeautifulSoup (cont, 'html.parser')
-    write_file(way_to_file, soup.prettify(formatter="html"))
+    write_file(way_to_file, soup.prettify())
 
 
 def make_directory(way):
