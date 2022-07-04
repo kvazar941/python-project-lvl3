@@ -1,6 +1,7 @@
 """downloader module."""
 import logging
 import os
+from bs4 import BeautifulSoup
 
 from page_loader.data_recipient import get_data
 from page_loader.file_reader import read_file
