@@ -91,15 +91,18 @@ def load_one_page(url, way):
     dir_ = '/'.join([way, rename_to_dir(page.url)])
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
+    replased = {}
     for list_, text in zip(lists, texts):
         if list_:
             logging.info(' '.join(list_))
             links = restore_links(page.url, filter_netloc(list_, page.url))
             logging.info(' '.join(links))
             get_sourses(links, dir_, text)
-            replased = {link_old: rename_to_file(rename_to_dir(page.url), link_new) for link_new, link_old in zip(links, list_)}
-            logging.info(replased)
-            print(replased)
+            for link_new, link_old in zip(links, list_):
+                replased[link_old] = rename_to_file(rename_to_dir(page.url), link_new)
+            #replased = {link_old: rename_to_file(rename_to_dir(page.url), link_new) for link_new, link_old in zip(links, list_)}
+    logging.info(replased)
+    print(replased)
     way_to_html = '/'.join([way, page.valid_name()])
     logging.info(f'download_html, way: {way_to_html}')
     download_html(way_to_html, changed_link(replased, page.content_url()))
