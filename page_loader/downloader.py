@@ -40,7 +40,8 @@ def download_html(way_to_file, cont):
     if os.path.exists(way_to_file):
         if cont == read_file(way_to_file, 'rb'):
             return
-    write_file(way_to_file, cont)
+    soup = BeautifulSoup (cont, 'html.parser')
+    write_file(way_to_file, soup.prettify(formatter="html5"))
 
 
 def make_directory(way):
