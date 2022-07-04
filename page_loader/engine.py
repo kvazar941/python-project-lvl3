@@ -61,9 +61,12 @@ def changed_link(dict_changed, content_html):
         str
     """
     logging.info('run changed_link')
+    print(dict_changed)
+    print(content_html)
     new_content = content_html
     for link in dict_changed:
         new_content = new_content.replace(link, dict_changed[link])
+    print(new_content)
     return new_content
 
 
