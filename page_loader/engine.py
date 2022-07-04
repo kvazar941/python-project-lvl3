@@ -94,7 +94,7 @@ def load_one_page(url, way):
             links = restore_links(page.url, filter_netloc(list_, page.url))
             logging.info(' '.join(links))
             get_sourses(links, dir_, text)
-            replased = {link: rename_to_file(rename_to_dir(page.url), link) for link in list_}
+            replased = {link: rename_to_file(rename_to_dir(page.url), link) for link in links}
             logging.info(replased)
             print(replased)
             changed_link(replased, page.content_url())
