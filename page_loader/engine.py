@@ -97,10 +97,9 @@ def load_one_page(url, way):
             replased = {link_old: rename_to_file(rename_to_dir(page.url), link_new) for link_new, link_old in zip(links, list_)}
             logging.info(replased)
             print(replased)
-            changed_link(replased, page.content_url())
     way_to_html = '/'.join([way, page.valid_name()])
     logging.info(f'download_html, way: {way_to_html}')
-    download_html(way_to_html, page.content_url())
+    download_html(way_to_html, changed_link(replased, page.content_url()))
     logging.info('html downloaded')
     logging.info('loaded one page')
     return str(way_to_html)
