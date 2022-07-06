@@ -1,13 +1,12 @@
 name: make-lint
 on: push
 jobs:
-  my-jobs:
+  make-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Step 1
-        run: |
-          pip install poetry
-          poetry add --dev flake8==3.9.1
-          poetry add --dev wemake-python-styleguide
-          make lint
+    - uses: actions/checkout@v2
+    - name: Step 1
+      run: |
+        pip install poetry
+        pip install wemake-python-styleguide
+        make lint
