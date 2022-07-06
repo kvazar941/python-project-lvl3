@@ -17,5 +17,5 @@ def write_file(way, content_file, mode='w+'):
         with open(way, mode) as file_name:
             file_name.write(content_file)
     except FileNotFoundError:
-       logging.info(ERROR.format(way))
-       raise FileNotFoundError(ERROR.format(way))
+        logging.info(ERROR.format(way))
+        raise FileNotFoundError(ERROR.format(way))

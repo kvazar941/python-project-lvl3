@@ -14,6 +14,7 @@ TEXT_IMG = 'Downloading images'
 TEXT_LINK = 'Downloading source of links'
 TEXT_SCRIPT = 'Downloading source of scripts'
 VALID_CODE = 200
+DEFAULT_WAY = os.getcwd()
 
 
 def get_full_link(url, short_link):
@@ -63,17 +64,6 @@ def changed_link(dict_changed, content_html):
     return new_content
 
 
-def filter_netloc(list_links, url):
-    print('list_links = ', list_links)
-    valid_netloc = urlparse(url).netloc
-    filtered_list = []
-    for link in list_links:
-        if urlparse(link).netloc in {valid_netloc, ''}:
-            filtered_list.append(link)
-    print('filtered_list = ', filtered_list)
-    return filtered_list
-
-
 def load_one_page(url, way):
     """
     Load the page and its resources..
@@ -87,28 +77,29 @@ def load_one_page(url, way):
     """
     logging.info('Run load one page.')
     page = Page(url)
-    dir_ = '/'.join([way, rename_to_dir(page.url)])
+    page_dir = rename_to_dir(page.url)
+    dir_ = '/'.join([way, page_dir])
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
     lists = [page.links_img(), page.links_link(), page.links_script()]
     replased = {}
     for list_, text in zip(lists, texts):
         if list_:
             logging.info(' '.join(list_))
-            links = restore_links(page.url, filter_netloc(list_, page.url))
+            links = restore_links(page.url, list_)
             logging.info(' '.join(links))
             get_sourses(links, dir_, text)
             for link_new, link_old in zip(links, list_):
-                replased[link_old] = rename_to_file(rename_to_dir(page.url), link_new)
+                replased[link_old] = rename_to_file(page_dir, link_new)
     logging.info(replased)
     way_to_html = '/'.join([way, page.valid_name()])
-    logging.info(f'Download_html, way: {way_to_html}.')
+    logging.info('Download_html, way: {0}.'.format(way_to_html))
     download_html(way_to_html, changed_link(replased, page.content_url()))
     logging.info('Html downloaded.')
     logging.info('Loaded one page.')
     return str(way_to_html)
 
 
-def download(url_page, way_to_dir=os.getcwd()):
+def download(url_page, way_to_dir=DEFAULT_WAY):
     logging.info('Program launch.')
     check_url(url_page)
     check_way(way_to_dir)

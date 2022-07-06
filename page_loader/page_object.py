@@ -1,5 +1,4 @@
 """page_object module."""
-import logging
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
