@@ -3,9 +3,9 @@ import logging
 import os
 from urllib.parse import urlparse, urlunparse
 
-import requests
 from progress.bar import Bar
 
+from page_loader.checker import check_url, check_way
 from page_loader.downloader import download_file, download_html, make_directory
 from page_loader.page_object import Page
 from page_loader.renamer import rename_to_dir, rename_to_file
@@ -23,7 +23,6 @@ def get_full_link(url, short_link):
 
 
 def restore_links(url, links):
-    logging.info('run restore_links')
     return [urlunparse(get_full_link(url, link)) for link in links]
 
 
@@ -36,17 +35,15 @@ def get_sourses(list_links, directory, text_progress):
         directory: str
         text_progress: str
     """
-    logging.debug('run get_sourses')
-    logging.info('create a directory "{0}".'.format(directory))
+    logging.debug('Run get_sourses.')
     make_directory(directory)
-    logging.info('directory "{0}" created.'.format(directory))
     with Bar(text_progress, max=len(list_links)) as progress_bar:
         for link in list_links:
-            logging.info('downloading file "{0}".'.format(link))
+            logging.info('Downloading file "{0}".'.format(link))
             download_file(link, rename_to_file(directory, link))
-            logging.info('file "{0}" download.'.format(link))
+            logging.info('File "{0}" download.'.format(link))
             progress_bar.next()
-    logging.debug('get_sourses complete.')
+    logging.debug('Get_sourses complete.')
 
 
 def changed_link(dict_changed, content_html):
@@ -60,19 +57,21 @@ def changed_link(dict_changed, content_html):
     Returns:
         str
     """
-    logging.info('run changed_link')
-    print(dict_changed)
-    print(content_html)
     new_content = content_html
     for link in dict_changed:
         new_content = new_content.replace(link, dict_changed[link])
-    print(new_content)
     return new_content
 
 
 def filter_netloc(list_links, url):
-    netloc = urlparse(url).netloc
-    return filter(lambda link: urlparse(link).netloc == netloc or urlparse(link).netloc == '', list_links)
+    print('list_links = ', list_links)
+    valid_netloc = urlparse(url).netloc
+    filtered_list = []
+    for link in list_links:
+        if urlparse(link).netloc in {valid_netloc, ''}:
+            filtered_list.append(link)
+    print('filtered_list = ', filtered_list)
+    return filtered_list
 
 
 def load_one_page(url, way):
@@ -86,7 +85,7 @@ def load_one_page(url, way):
     Returns:
         str
     """
-    logging.info('run load one page')
+    logging.info('Run load one page.')
     page = Page(url)
     dir_ = '/'.join([way, rename_to_dir(page.url)])
     texts = [TEXT_IMG, TEXT_LINK, TEXT_SCRIPT]
@@ -100,44 +99,19 @@ def load_one_page(url, way):
             get_sourses(links, dir_, text)
             for link_new, link_old in zip(links, list_):
                 replased[link_old] = rename_to_file(rename_to_dir(page.url), link_new)
-            #replased = {link_old: rename_to_file(rename_to_dir(page.url), link_new) for link_new, link_old in zip(links, list_)}
     logging.info(replased)
-    print(replased)
     way_to_html = '/'.join([way, page.valid_name()])
-    logging.info(f'download_html, way: {way_to_html}')
+    logging.info(f'Download_html, way: {way_to_html}.')
     download_html(way_to_html, changed_link(replased, page.content_url()))
-    logging.info('html downloaded')
-    logging.info('loaded one page')
+    logging.info('Html downloaded.')
+    logging.info('Loaded one page.')
     return str(way_to_html)
 
 
-def verify_url(url):
-    expected_url = requests.get(url)
-    if expected_url.status_code != VALID_CODE:
-        logging.error('"{0}" is not available.'.format(url))
-        raise ConnectionError('"{0}" is not available.'.format(url))
-    else:
-        logging.error('The url was obtained: "{0}"'.format(url))
-
-        
-def verify_way(way):
-    if not os.path.exists(way):
-        logging.info('The directory {0} does not exist'.format(way))
-        raise FileNotFoundError('The directory {0} does not exist'.format(way))
-    if way in {'/sys', '/bin', '/tmp'}:
-        logging.info('write to directory {0} is not available'.format(way))
-        raise OSError('write to directory {0} is not available'.format(way))
-    if not os.path.isdir(way):
-        logging.info('way {0} is not directory'.format(way))
-        raise OSError('way {0} is not directory'.format(way))
-    else:
-        logging.info('The download path was obtained: "{0}"'.format(way))
-
-
 def download(url_page, way_to_dir=os.getcwd()):
-    logging.info('program launch')
-    verify_url(url_page)
-    verify_way(way_to_dir)
+    logging.info('Program launch.')
+    check_url(url_page)
+    check_way(way_to_dir)
     work_result = load_one_page(url_page, way_to_dir)
-    logging.info('program shutdown')
+    logging.info('Program shutdown.')
     return work_result

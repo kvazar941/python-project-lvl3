@@ -24,11 +24,12 @@ def get_link_from_tag(content_html, source, tag, netloc):
     soup = BeautifulSoup(content_html, 'html.parser')
     list_tags = soup.find_all(tag)
     links = [atr[source] for atr in list_tags if atr.get(source)]
-    logging.info(' '.join(links))
-    logging.info(' '.join([link for link in links if urlparse(link).netloc == '']))
-    links_two = [link for link in links if urlparse(link).netloc == netloc or urlparse(link).netloc == '']
-    logging.info(' '.join(links_two))
-    return links_two
+    filtered_links = []
+    for link in links:
+        if urlparse(link).netloc in {netloc, ''}:
+            filtered_links.append(link)
+    return filtered_links
+
 
 class Page():
     """

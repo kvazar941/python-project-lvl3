@@ -18,9 +18,8 @@ def test_load_one_page(requests_mock):
         'https://ru.hexlet.io/courses/packs/js/runtime.js',
     ]
     with tempfile.TemporaryDirectory() as tmpdirname:
-        way_result = ''.join([tmpdirname, '/'])
         requests_mock.get(LINK, status_code=RESEIVED_CODE, text='content')
         for link in links:
             requests_mock.get(link, status_code=RESEIVED_CODE, text='')
-        reseived_result = ''.join([way_result, 'ru-hexlet-io-courses.html'])
-        assert load_one_page(LINK, way_result) == reseived_result
+        reseived_result = '/'.join([tmpdirname, 'ru-hexlet-io-courses.html'])
+        assert load_one_page(LINK, tmpdirname) == reseived_result

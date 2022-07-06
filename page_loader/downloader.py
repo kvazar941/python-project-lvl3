@@ -1,13 +1,12 @@
 """downloader module."""
 import logging
 import os
+
 from bs4 import BeautifulSoup
 
 from page_loader.data_recipient import get_data
 from page_loader.file_reader import read_file
 from page_loader.file_writer import write_file
-
-ERROR = 'Unable to create a directory {0}.'
 
 
 def download_file(link, way_to_file):
@@ -41,7 +40,7 @@ def download_html(way_to_file, cont):
     if os.path.exists(way_to_file):
         if cont == read_file(way_to_file, 'rb'):
             return
-    soup = BeautifulSoup (cont, 'html.parser')
+    soup = BeautifulSoup(cont, 'html.parser')
     write_file(way_to_file, soup.prettify())
 
 
@@ -55,13 +54,9 @@ def make_directory(way):
     Returns:
         created directory or exit of programm
     """
-    #try:
     if not os.path.exists(way):
-        logging.info('directory {0} not found'.format(way))
+        logging.info('Directory {0} not found. Create directory.'.format(way))
         os.mkdir(way)
-        logging.info('directory {0} created'.format(way))
+        logging.info('Directory {0} created.'.format(way))
     else:
-        logging.info('directory {0} found'.format(way))
-    #except Exception:
-    #    logging.info(ERROR.format(way))
-    #    raise FileNotFoundError(ERROR.format(way))
+        logging.info('Directory {0} found.'.format(way))
