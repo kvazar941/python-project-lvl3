@@ -23,3 +23,6 @@ by:
 	poetry run pytest
 	poetry run flake8 page_loader
 	poetry run flake8 tests
+
+coverage:
+	poetry run coverage run -m pytest

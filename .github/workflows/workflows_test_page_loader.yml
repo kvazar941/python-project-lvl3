@@ -1,7 +1,7 @@
 name: make-test
 on: push
 jobs:
-  my-jobs:
+  make-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -9,3 +9,9 @@ jobs:
         run: |
           pip install poetry
           make tests
+      - name: Coverage report
+        uses: paambaati/codeclimate-action@v.2.7.5
+        env:
+          CC_TESTREPORTER_ID: ${{ secrets.COVERAGE_REPORT_TEST }}
+        with:
+          coverageCommand: make coverage

@@ -17,5 +17,5 @@
 
 ### An example of processing download page:
 
-https://asciinema.org/a/YbdEVZtJoWnM7LUysrBmWCQdf
+[![asciicast](https://asciinema.org/a/YbdEVZtJoWnM7LUysrBmWCQdf.svg)](https://asciinema.org/a/YbdEVZtJoWnM7LUysrBmWCQdf)
 
