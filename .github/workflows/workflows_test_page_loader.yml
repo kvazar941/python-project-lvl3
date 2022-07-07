@@ -8,6 +8,7 @@ jobs:
       - name: Step 1
         run: |
           pip install poetry
+          pip install pytest
           pip install coverage
           make tests
           make coverage
