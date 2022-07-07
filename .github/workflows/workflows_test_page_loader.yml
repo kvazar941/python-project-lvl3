@@ -10,6 +10,9 @@ jobs:
           pip install poetry
           pip install pytest
           pip install coverage
+          pip install pytest-cov
+          pip install progress
+          pip install beautifulsoup4
           make tests
           make coverage
       - name: Coverage report
