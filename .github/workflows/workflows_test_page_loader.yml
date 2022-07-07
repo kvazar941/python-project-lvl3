@@ -8,7 +8,9 @@ jobs:
       - name: Step 1
         run: |
           pip install poetry
+          pip install coverage
           make tests
+          make coverage
       - name: Coverage report
         uses: paambaati/codeclimate-action@v2.7.5
         env:
