@@ -2,18 +2,13 @@
 import logging
 import os
 
-import requests
+from page_loader.data_recipient import get_data
 
 VALID_CODE = 200
 
 
 def check_url(url):
-    expected_url = requests.get(url)
-    if expected_url.status_code != VALID_CODE:
-        logging.error('"{0}" is not available.'.format(url))
-        raise ConnectionError('"{0}" is not available.'.format(url))
-    else:
-        logging.info('The url was obtained: "{0}"'.format(url))
+    get_data(url)
 
 
 def check_way(way):
