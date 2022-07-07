@@ -10,7 +10,7 @@ jobs:
           pip install poetry
           make tests
       - name: Coverage report
-        uses: paambaati/codeclimate-action@v.2.7.5
+        uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TESTREPORTER_ID: ${{ secrets.COVERAGE_REPORT_TEST }}
         with:
