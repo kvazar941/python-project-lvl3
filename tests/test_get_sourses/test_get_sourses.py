@@ -17,5 +17,5 @@ def test_get_sourses(requests_mock):
         way_to_dir = '/'.join([tmpdirname, dir_name])
         assert not os.path.exists(way_to_dir)
         os.mkdir(way_to_dir)
-        get_sourses(test_list, way_to_dir, 'texst')
+        get_sourses(test_list, way_to_dir)
         assert os.path.exists(way_to_dir)

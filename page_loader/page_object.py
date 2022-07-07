@@ -4,7 +4,6 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
 from page_loader.data_recipient import get_data
-from page_loader.renamer import rename_to_html
 
 
 def get_link_from_tag(content_html, source, tag, netloc):
@@ -52,9 +51,6 @@ class Page():
            str
         """
         self.url = url
-
-    def valid_name(self):
-        return rename_to_html(self.url)
 
     def get_netloc(self):
         return urlparse(self.url).netloc
