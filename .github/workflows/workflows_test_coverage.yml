@@ -14,9 +14,10 @@ jobs:
           pip install progress
           pip install beautifulsoup4
       - name: Coverage report
-        uses: kvazar941/python-project-lvl3@v3.0.0
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: 7c5703762581615af5e96ed2ff0db5ced669e76136f4df9a77d284b7b542681b
         with:
           coverageCommand: make coverage
+          debug: true
 
