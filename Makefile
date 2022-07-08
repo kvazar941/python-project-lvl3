@@ -25,4 +25,4 @@ by:
 	poetry run flake8 tests
 
 coverage:
-	poetry run pytest -v --cov=page_loader tests/ --cov-report xml
+	poetry run coverage xml
