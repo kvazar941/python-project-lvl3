@@ -22,7 +22,7 @@ jobs:
       - name: Coverage report
         uses: paambaati/codeclimate-action@v3.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.COVERAGE_REPORT_TEST }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
-          coverageCommand: make coverage
+          coverageCommand: make test-coverage
 
