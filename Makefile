@@ -26,4 +26,4 @@ by:
 	#poetry run flake8 tests
 
 test-coverage:
-	poetry run coverage xml --data-file=coverage.xml
+	poetry run coverage xml --data-file=./coverage.xml
