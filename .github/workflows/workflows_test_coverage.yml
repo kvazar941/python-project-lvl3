@@ -3,16 +3,19 @@ on: push
 jobs:
   make-coverage:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
     steps:
       - uses: actions/checkout@v2
-      - name: install dev
+      - name: install Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+            python-version: ${{ matrix.python-version }}
+      - name: install poetry
         run: |
           pip install poetry
-          pip install pytest
-          pip install coverage
-          pip install pytest-cov
-          pip install progress
-          pip install beautifulsoup4
+          make install
       - name: Coverage report
         uses: paambaati/codeclimate-action@v3.0.0
         env:
