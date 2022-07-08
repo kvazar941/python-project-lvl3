@@ -13,7 +13,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/d0a1c9051540ab6c1750/maintainability)](https://codeclimate.com/github/kvazar941/python-project-lvl3/maintainability)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/d0a1c9051540ab6c1750/test_coverage)](https://codeclimate.com/github/kvazar941/python-project-lvl3/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d0a1c9051540ab6c1750/test_coverage)](https://codeclimate.com/github/paambaati/codeclimate-action/test_coverage)
 
 ### An example of processing download page:
 

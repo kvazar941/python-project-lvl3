@@ -1,0 +1,22 @@
+name: make-coverage
+on: push
+jobs:
+  make-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dev
+        run: |
+          pip install poetry
+          pip install pytest
+          pip install coverage
+          pip install pytest-cov
+          pip install progress
+          pip install beautifulsoup4
+      - name: Coverage report
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.COVERAGE_REPORT_TEST }}
+        with:
+          coverageCommand: make coverage
+
