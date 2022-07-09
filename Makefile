@@ -27,4 +27,4 @@ by:
 	#poetry run flake8 tests
 
 test-coverage:
-	poetry run coverage xml
+	poetry run coverage xml -i
