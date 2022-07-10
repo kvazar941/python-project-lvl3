@@ -87,7 +87,7 @@ def load_one_page(url, way):
     download_html(way_html, changed_link(replased_link, page.content_url()))
     log_debug('Html downloaded.')
     log_debug('Loaded one page.')
-    return str("Page was downloaded as '{0}'".format(way_html))
+    return str(way_html)
 
 
 def download(url, way=DEFAULT_WAY):

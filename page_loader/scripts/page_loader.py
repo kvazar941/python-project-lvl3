@@ -6,7 +6,8 @@ from page_loader.engine import download
 
 def main():
     args = argument_handing()
-    print(download(args.url_page, args.output))
+    download_result = download(args.url_page, args.output)
+    print("Page was downloaded as '{0}'".format(download_result))
 
 
 if __name__ == '__main__':
