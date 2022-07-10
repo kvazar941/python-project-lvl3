@@ -1,33 +1,25 @@
 """logging module."""
 import logging
-
-from page_loader.downloader import make_directory
+import sys
 
 LOGGER_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'  # noqa WPS323
-NAME_REPORT_DEBUG = 'report_debug.log'
 
 
-def create_logger(directory):
-    """
-    Create logger.
-
-    Args:
-        directory: str
-
-    Returns:
-        logger object
-    """
-    logger = logging.getLogger('log')
-    logger.setLevel(logging.DEBUG)
-    fd = logging.FileHandler(''.join([directory, NAME_REPORT_DEBUG]))
-    fd.setLevel(logging.DEBUG)
-    formatter = logging.Formatter(LOGGER_FORMAT)
-    fd.setFormatter(formatter)
-    logger.addHandler(fd)
-    return logger
+logger = logging.getLogger('log')
+logger.setLevel(logging.INFO)
+log_handler = logging.StreamHandler(stream=sys.stdout)
+formatter = logging.Formatter(LOGGER_FORMAT)
+log_handler.setFormatter(formatter)
+logger.addHandler(log_handler)
 
 
-def log(message, directory='logs/'):
-    make_directory(directory)
-    logger = create_logger(directory)
+def log_debug(message):
     logger.debug(message)
+
+
+def log_info(message):
+    logger.info(message)
+
+
+def log_error(message):
+    logger.error(message)

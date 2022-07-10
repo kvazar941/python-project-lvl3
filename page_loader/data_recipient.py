@@ -1,7 +1,7 @@
 """data_recipient module."""
-import logging
-
 import requests
+
+from page_loader.logger import log_debug, log_error
 
 ERROR = 'The resource "{0}" is not available.'
 CODE_VALID = 200
@@ -21,8 +21,8 @@ def get_data(link):
     try:
         link_data = requests.get(link)
         assert link_data.status_code == CODE_VALID
-        logging.info(MESSAGE.format(link))
+        log_debug(MESSAGE.format(link))
     except ConnectionError:
-        logging.error(ERROR.format(link))
+        log_error(ERROR.format(link))
         raise ConnectionError(ERROR.format(link))
     return link_data

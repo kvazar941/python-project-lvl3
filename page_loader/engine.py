@@ -1,5 +1,4 @@
 """engine module."""
-import logging
 import os
 from urllib.parse import urlparse, urlunparse
 
@@ -7,6 +6,7 @@ from progress.bar import Bar
 
 from page_loader.checker import check_url, check_way
 from page_loader.downloader import download_file, download_html, make_directory
+from page_loader.logger import log_debug, log_info
 from page_loader.page_object import Page
 from page_loader.renamer import rename_to_dir, rename_to_file, rename_to_html
 
@@ -31,15 +31,17 @@ def get_sourses(list_links, directory):
         list_links: list
         directory: str
     """
-    logging.debug('Run get_sourses.')
+    log_debug('Run get_sourses.')
     make_directory(directory)
     with Bar('Progress: ', max=len(list_links)) as progress_bar:
         for link in list_links:
-            logging.info('Downloading file "{0}".'.format(link))
+            log_debug('Downloading file "{0}".'.format(link))
             download_file(link, rename_to_file(directory, link))
-            logging.info('File "{0}" download.'.format(link))
+            log_debug('File "{0}" download.'.format(link))
             progress_bar.next()
-    logging.debug('Get_sourses complete.')
+    source = '\n'.join(list_links)
+    log_info('The following resources have been uploaded: {0}'.format(source))
+    log_debug('Get_sourses complete.')
 
 
 def changed_link(dict_changed, content_html):
@@ -70,7 +72,7 @@ def load_one_page(url, way):
     Returns:
         str
     """
-    logging.info('Run load one page.')
+    log_debug('Run load one page.')
     page = Page(url)
     page_directory = rename_to_dir(url)
     way_html = '/'.join([way, rename_to_html(url)])
@@ -81,17 +83,17 @@ def load_one_page(url, way):
         get_sourses(full_links, directory_sourses)
         for link_new, link_old in zip(full_links, page.all_links()):
             replased_link[link_old] = rename_to_file(page_directory, link_new)
-    logging.info('Download_html, way: {0}.'.format(way_html))
+    log_info('Download html, way: {0}.'.format(way_html))
     download_html(way_html, changed_link(replased_link, page.content_url()))
-    logging.info('Html downloaded.')
-    logging.info('Loaded one page.')
-    return str(way_html)
+    log_debug('Html downloaded.')
+    log_debug('Loaded one page.')
+    return str("Page was downloaded as '{0}'".format(way_html))
 
 
 def download(url, way=DEFAULT_WAY):
-    logging.info('Program launch.')
+    log_info('Program launch.')
     check_url(url)
     check_way(way)
     work_result = load_one_page(url, way)
-    logging.info('Program shutdown.')
+    log_debug('Program shutdown.')
     return work_result

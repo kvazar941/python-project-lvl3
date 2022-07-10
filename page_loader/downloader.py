@@ -1,5 +1,4 @@
 """downloader module."""
-import logging
 import os
 
 from bs4 import BeautifulSoup
@@ -7,6 +6,7 @@ from bs4 import BeautifulSoup
 from page_loader.data_recipient import get_data
 from page_loader.file_reader import read_file
 from page_loader.file_writer import write_file
+from page_loader.logger import log_debug
 
 
 def download_file(link, way_to_file):
@@ -55,8 +55,8 @@ def make_directory(way):
         created directory or exit of programm
     """
     if not os.path.exists(way):
-        logging.info('Directory {0} not found. Create directory.'.format(way))
+        log_debug('Directory {0} not found. Create directory.'.format(way))
         os.mkdir(way)
-        logging.info('Directory {0} created.'.format(way))
+        log_debug('Directory {0} created.'.format(way))
     else:
-        logging.info('Directory {0} found.'.format(way))
+        log_debug('Directory {0} found.'.format(way))
