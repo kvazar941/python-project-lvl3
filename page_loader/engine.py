@@ -8,8 +8,9 @@ from page_loader.checker import check_way
 from page_loader.data_recipient import get_data
 from page_loader.downloader import download_file, download_html, make_directory
 from page_loader.logger import log_debug, log_info
+from page_loader.name_maker import (make_name_file, make_name_html,
+                                    make_name_path)
 from page_loader.page_object import get_links, restore_links
-from page_loader.renamer import rename_to_dir, rename_to_file, rename_to_html
 
 DEFAULT_WAY = os.getcwd()
 
@@ -17,7 +18,7 @@ DEFAULT_WAY = os.getcwd()
 def get_dict_replased_link(full_links, all_link, page_directory):
     replased_link = {}
     for link_new, link_old in zip(full_links, all_link):
-        replased_link[link_old] = rename_to_file(page_directory, link_new)
+        replased_link[link_old] = make_name_file(page_directory, link_new)
     return replased_link
 
 
@@ -51,7 +52,7 @@ def get_sourses(list_links, directory):
     with Bar('Progress: ', max=len(list_links)) as progress_bar:
         for link in list_links:
             log_debug('Downloading file "{0}".'.format(link))
-            download_file(link, rename_to_file(directory, link))
+            download_file(link, make_name_file(directory, link))
             log_debug('File "{0}" download.'.format(link))
             progress_bar.next()
     source = '\n'.join(list_links)
@@ -78,8 +79,8 @@ def load_one_page(url, way):
     """
     log_debug('Run load one page.')
     page = get_data(url)
-    page_dir = rename_to_dir(url)
-    way_html = '/'.join([way, rename_to_html(url)])
+    page_dir = make_name_path(url)
+    way_html = '/'.join([way, make_name_html(url)])
     directory_sourses = '/'.join([way, page_dir])
     all_link = get_links(page.text, urlparse(url).netloc)
     full_links = restore_links(url, all_link)
