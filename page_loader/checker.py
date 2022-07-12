@@ -1,15 +1,7 @@
 """checker module."""
 import os
 
-from page_loader.data_recipient import get_data
 from page_loader.logger import log_error, log_info
-
-VALID_CODE = 200
-
-
-def check_url(url):
-    log_info("The download url was obtained: '{0}'".format(url))
-    get_data(url)
 
 
 def check_way(way):
