@@ -16,3 +16,5 @@ def write_file(way, content_file, mode='w+'):
             file_name.write(content_file)
     except FileNotFoundError:
         raise FileNotFoundError(ERROR.format(way))
+    except PermissionError:
+        raise PermissionError(ERROR.format(way))
