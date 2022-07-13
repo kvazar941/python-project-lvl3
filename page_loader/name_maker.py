@@ -1,7 +1,6 @@
 """name_maker module."""
+import os
 from urllib.parse import urlparse
-
-import requests
 
 
 def make_simple_name(name):
@@ -31,12 +30,9 @@ def make_name_path(name):
 
 
 def make_name_file(directory, name):
-    url = requests.head(name)
-    if url.headers['content-type'] == 'text/html; charset=utf-8':
-        current_file_name = make_name_html(name)
+    way, extension = os.path.splitext(name)
+    if extension == '':
+        current_file_name = make_name_html(way)
     else:
-        split_name = name.split('.')
-        way = '.'.join(split_name[:-1])
-        extension = f'.{split_name[-1]}'
         current_file_name = ''.join([make_simple_name(way), extension])
     return '/'.join([directory, current_file_name])
