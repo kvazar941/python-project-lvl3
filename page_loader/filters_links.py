@@ -11,7 +11,7 @@ def pre_filter_tag(tag):
     return any([tag.has_attr(atr) for atr in ATTRIBUTES if tag.name in TAGS])
 
 
-def get_links(content_html, netloc):
+def filter_links(content_html, netloc):
     """
     Get links from content_html.
 

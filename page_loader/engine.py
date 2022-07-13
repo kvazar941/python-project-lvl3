@@ -7,18 +7,18 @@ from progress.bar import Bar
 from page_loader.checker import check_way
 from page_loader.data_recipient import get_data
 from page_loader.downloader import download_file, download_html, make_directory
+from page_loader.filters_links import filter_links, restore_links
 from page_loader.logger import log_debug, log_info
-from page_loader.name_maker import (make_name_file, make_name_html,
-                                    make_name_path)
-from page_loader.page_object import get_links, restore_links
+from page_loader.name_maker import (make_full_path_dir, make_name_dir,
+                                    make_name_file, make_name_html)
 
 DEFAULT_WAY = os.getcwd()
 
 
-def get_dict_replased_link(full_links, all_link, page_directory):
+def get_replased_link(full_links, all_link, url):
     replased_link = {}
     for link_new, link_old in zip(full_links, all_link):
-        replased_link[link_old] = make_name_file(page_directory, link_new)
+        replased_link[link_old] = make_name_file(make_name_dir(url), link_new)
     return replased_link
 
 
@@ -60,10 +60,12 @@ def get_sourses(list_links, directory):
     log_debug('Get_sourses complete.')
 
 
-def save_html(way, text):
+def save_html(way, url, text):
     log_debug('Download html, way: {0}.'.format(way))
-    download_html(way, text)
+    way_to_file_html = '/'.join([way, make_name_html(url)])
+    download_html(way_to_file_html, text)
     log_debug('Html downloaded.')
+    return str(way_to_file_html)
 
 
 def load_one_page(url, way):
@@ -79,18 +81,15 @@ def load_one_page(url, way):
     """
     log_debug('Run load one page.')
     page = get_data(url)
-    page_dir = make_name_path(url)
-    way_html = '/'.join([way, make_name_html(url)])
-    directory_sourses = '/'.join([way, page_dir])
-    all_link = get_links(page.text, urlparse(url).netloc)
+    directory_sourses = make_full_path_dir(url, way)
+    all_link = filter_links(page.text, urlparse(url).netloc)
     full_links = restore_links(url, all_link)
     dict_replased = {}
     if full_links:
-        dict_replased = get_dict_replased_link(full_links, all_link, page_dir)
+        dict_replased = get_replased_link(full_links, all_link, url)
         get_sourses(full_links, directory_sourses)
-    save_html(way_html, changed_link(dict_replased, page.text))
     log_debug('Loaded one page.')
-    return str(way_html)
+    return save_html(way, url, changed_link(dict_replased, page.text))
 
 
 def download(url, way=DEFAULT_WAY):
