@@ -4,7 +4,7 @@ import requests
 from page_loader.logger import log_debug, log_error
 
 ERROR = 'The resource "{0}" is not available.'
-CODE_VALID = 200
+CODE_VALID = [200, 300]
 MESSAGE = 'The response to the resource {0} request was received'
 
 
@@ -19,7 +19,7 @@ def get_data(link):
         str
     """
     link_data = requests.get(link)
-    if link_data.status_code == CODE_VALID:
+    if link_data.status_code in CODE_VALID:
         log_debug(MESSAGE.format(link))
     else:
         log_error(ERROR.format(link))

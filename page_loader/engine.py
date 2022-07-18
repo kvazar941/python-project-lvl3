@@ -1,6 +1,6 @@
 """engine module."""
 import os
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 from progress.bar import Bar
@@ -30,10 +30,9 @@ def get_changed_html(url):
             new = f'{netloc_url}{urlparse(link).path}'
             local_link = make_name_file(make_name_dir(url), new)
             tag[TAGS[tag.name]] = local_link
-            new_link = urlparse(link)
-            new_link._replace(scheme=scheme_url, netloc=netloc_url)
-            list_replased.append(urlunparse(new_link))
-            log_debug(f'New link: "{urlunparse(new_link)}".')
+            new_link = f'{scheme_url}://{netloc_url}{urlparse(link).path}'
+            list_replased.append(new_link)
+            log_debug(f'New link: "{new_link}".')
     return soup.prettify(), list_replased
 
 
