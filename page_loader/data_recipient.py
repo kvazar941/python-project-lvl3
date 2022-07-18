@@ -16,13 +16,38 @@ def get_data(link):
         link: str
 
     Returns:
-        requests object or exit of programm
+        str
     """
-    try:
-        link_data = requests.get(link)
-        assert link_data.status_code == CODE_VALID
+    link_data = requests.get(link)
+    if link_data.status_code == CODE_VALID:
         log_debug(MESSAGE.format(link))
-    except ConnectionError:
+    else:
         log_error(ERROR.format(link))
         raise ConnectionError(ERROR.format(link))
     return link_data
+
+
+def get_text(link):
+    """
+    Get data by link.
+
+    Args:
+        link: str
+
+    Returns:
+        str
+    """
+    return get_data(link).text
+
+
+def get_content(link):
+    """
+    Get data by link.
+
+    Args:
+        link: str
+
+    Returns:
+        bin
+    """
+    return get_data(link).content

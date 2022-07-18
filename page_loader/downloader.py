@@ -3,8 +3,7 @@ import os
 
 from bs4 import BeautifulSoup
 
-from page_loader.data_recipient import get_data
-from page_loader.file_reader import read_file
+from page_loader.data_recipient import get_content
 from page_loader.file_writer import write_file
 from page_loader.logger import log_debug
 
@@ -20,10 +19,7 @@ def download_file(link, way_to_file):
     Returns:
         recorded file
     """
-    if os.path.exists(way_to_file):
-        if get_data(link).content == read_file(way_to_file, 'rb'):
-            return
-    write_file(way_to_file, get_data(link).content, 'wb')
+    write_file(way_to_file, get_content(link), 'wb')
 
 
 def download_html(way_to_file, cont):
@@ -37,9 +33,6 @@ def download_html(way_to_file, cont):
     Returns:
         recorded file
     """
-    if os.path.exists(way_to_file):
-        if cont == read_file(way_to_file, 'rb'):
-            return
     soup = BeautifulSoup(cont, 'html.parser')
     write_file(way_to_file, soup.prettify())
 

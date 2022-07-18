@@ -3,12 +3,7 @@ from urllib.parse import urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 
-TAGS = {'img', 'link', 'script'}
-ATTRIBUTES = {'src', 'href'}
-
-
-def pre_filter_tag(tag):
-    return any([tag.has_attr(atr) for atr in ATTRIBUTES if tag.name in TAGS])
+TAGS = {'img': 'src', 'link': 'href', 'script': 'src'}
 
 
 def filter_links(content_html, netloc):
@@ -23,8 +18,8 @@ def filter_links(content_html, netloc):
         list
     """
     soup = BeautifulSoup(content_html, 'html.parser')
-    tags = soup.find_all(pre_filter_tag)
-    links = [tag[atr] for tag in tags for atr in ATTRIBUTES if tag.get(atr)]
+    tags = soup.find_all(TAGS.keys())
+    links = [tag.get(TAGS[tag.name]) for tag in tags]
     return [link for link in links if urlparse(link).netloc in {netloc, ''}]
 
 

@@ -2,10 +2,11 @@
 import os
 from urllib.parse import urlparse
 
+from bs4 import BeautifulSoup
 from progress.bar import Bar
 
 from page_loader.checker import check_way
-from page_loader.data_recipient import get_data
+from page_loader.data_recipient import get_text
 from page_loader.downloader import download_file, download_html, make_directory
 from page_loader.filters_links import filter_links, restore_links
 from page_loader.logger import log_debug, log_info
@@ -13,7 +14,16 @@ from page_loader.name_maker import (make_full_path_dir, make_name_dir,
                                     make_name_file, make_name_html)
 
 DEFAULT_WAY = os.getcwd()
+TAGS = {'img': 'src', 'link': 'href', 'script': 'src'}
 
+
+def func(html, netloc):
+    soup = BeautifulSoup(html, 'html.parser')
+    tags = soup.find_all(TAGS.keys())
+    links = [tag.get(TAGS[tag.name]) for tag in tags]
+    flinks = [link for link in links if urlparse(link).netloc in {netloc, ''}]
+    return soup.prettify()
+    
 
 def get_replased_link(full_links, all_link, url):
     replased_link = {}
@@ -60,12 +70,11 @@ def get_sourses(list_links, directory):
     log_debug('Get_sourses complete.')
 
 
-def save_html(way, url, text):
+def save_html(way, text):
     log_debug('Download html, way: {0}.'.format(way))
-    way_to_file_html = '/'.join([way, make_name_html(url)])
-    download_html(way_to_file_html, text)
+    download_html(way, text)
     log_debug('Html downloaded.')
-    return str(way_to_file_html)
+    return str(way)
 
 
 def load_one_page(url, way):
@@ -80,16 +89,17 @@ def load_one_page(url, way):
         str
     """
     log_debug('Run load one page.')
-    page = get_data(url)
+    page = get_text(url)
     directory_sourses = make_full_path_dir(url, way)
-    all_link = filter_links(page.text, urlparse(url).netloc)
+    way_to_file_html = f'{way}/{make_name_html(url)}'
+    all_link = filter_links(page, urlparse(url).netloc)
     full_links = restore_links(url, all_link)
     dict_replased = {}
     if full_links:
         dict_replased = get_replased_link(full_links, all_link, url)
         get_sourses(full_links, directory_sourses)
     log_debug('Loaded one page.')
-    return save_html(way, url, changed_link(dict_replased, page.text))
+    return save_html(way_to_file_html, changed_link(dict_replased, page))
 
 
 def download(url, way=DEFAULT_WAY):

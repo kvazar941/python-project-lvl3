@@ -21,16 +21,16 @@ def make_simple_name(reseived_url):
 
 def make_name_html(url):
     if not url.endswith('.html'):
-        return '.'.join([make_simple_name(url), 'html'])
-    return '.'.join([make_simple_name(url)[:-5], 'html'])
+        return f'{make_simple_name(url)}.html'
+    return f'{make_simple_name(url)[:-5]}.html'
 
 
 def make_name_dir(url):
-    return '_'.join([make_simple_name(url), 'files'])
+    return f'{make_simple_name(url)}_files'
 
 
 def make_full_path_dir(url, way):
-    return '/'.join([way, make_name_dir(url)])
+    return f'{way}/{make_name_dir(url)}'
 
 
 def make_name_file(directory, name):
@@ -39,5 +39,5 @@ def make_name_file(directory, name):
         current_file_name = make_name_html(name)
     else:
         way = name[:-len(extension)]
-        current_file_name = ''.join([make_simple_name(way), extension])
-    return '/'.join([directory, current_file_name])
+        current_file_name = f'{make_simple_name(way)}{extension}'
+    return f'{directory}/{current_file_name}'
