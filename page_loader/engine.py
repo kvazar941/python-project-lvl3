@@ -26,12 +26,14 @@ def get_changed_html(url):
     for tag in tags:
         link = tag.get(TAGS[tag.name])
         if urlparse(link).netloc in {netloc_url, ''}:
+            log_debug(f'Link "{link}" found')
             new = f'{netloc_url}{urlparse(link).path}'
             local_link = make_name_file(make_name_dir(url), new)
             tag[TAGS[tag.name]] = local_link
             new_link = urlparse(link)
             new_link._replace(scheme=scheme_url, netloc=netloc_url)
             list_replased.append(urlunparse(new_link))
+            log_debug(f'New link: "{urlunparse(new_link)}".')
     return soup.prettify(), list_replased
 
 
