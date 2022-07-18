@@ -1,6 +1,6 @@
 """engine module."""
 import os
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from progress.bar import Bar
@@ -8,7 +8,6 @@ from progress.bar import Bar
 from page_loader.checker import check_way
 from page_loader.data_recipient import get_text
 from page_loader.downloader import download_file, download_html, make_directory
-from page_loader.filters_links import filter_links, restore_links
 from page_loader.logger import log_debug, log_info
 from page_loader.name_maker import (make_full_path_dir, make_name_dir,
                                     make_name_file, make_name_html)
@@ -17,36 +16,23 @@ DEFAULT_WAY = os.getcwd()
 TAGS = {'img': 'src', 'link': 'href', 'script': 'src'}
 
 
-def func(html, netloc):
+def get_changed_html(url):
+    html = get_text(url)
     soup = BeautifulSoup(html, 'html.parser')
+    netloc_url = urlparse(url).netloc
+    scheme_url = urlparse(url).scheme
     tags = soup.find_all(TAGS.keys())
-    links = [tag.get(TAGS[tag.name]) for tag in tags]
-    flinks = [link for link in links if urlparse(link).netloc in {netloc, ''}]
-    return soup.prettify()
-    
-
-def get_replased_link(full_links, all_link, url):
-    replased_link = {}
-    for link_new, link_old in zip(full_links, all_link):
-        replased_link[link_old] = make_name_file(make_name_dir(url), link_new)
-    return replased_link
-
-
-def changed_link(dict_changed, content_html):
-    """
-    Replace the links in the html content with local ones.
-
-    Args:
-        dict_changed: dict
-        content_html: str
-
-    Returns:
-        str
-    """
-    new_content = content_html
-    for link in dict_changed:
-        new_content = new_content.replace(link, dict_changed[link])
-    return new_content
+    list_replased = []
+    for tag in tags:
+        link = tag.get(TAGS[tag.name])
+        if urlparse(link).netloc in {netloc_url, ''}:
+            new = f'{netloc_url}{urlparse(link).path}'
+            local_link = make_name_file(make_name_dir(url), new)
+            tag[TAGS[tag.name]] = local_link
+            new_link = urlparse(link)
+            new_link._replace(scheme=scheme_url, netloc=netloc_url)
+            list_replased.append(urlunparse(new_link))
+    return soup.prettify(), list_replased
 
 
 def get_sourses(list_links, directory):
@@ -89,17 +75,13 @@ def load_one_page(url, way):
         str
     """
     log_debug('Run load one page.')
-    page = get_text(url)
+    final_html, all_links = get_changed_html(url)
     directory_sourses = make_full_path_dir(url, way)
     way_to_file_html = f'{way}/{make_name_html(url)}'
-    all_link = filter_links(page, urlparse(url).netloc)
-    full_links = restore_links(url, all_link)
-    dict_replased = {}
-    if full_links:
-        dict_replased = get_replased_link(full_links, all_link, url)
-        get_sourses(full_links, directory_sourses)
+    if all_links:
+        get_sourses(all_links, directory_sourses)
     log_debug('Loaded one page.')
-    return save_html(way_to_file_html, changed_link(dict_replased, page))
+    return save_html(way_to_file_html, final_html)
 
 
 def download(url, way=DEFAULT_WAY):
