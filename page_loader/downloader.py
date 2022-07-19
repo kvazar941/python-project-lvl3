@@ -34,7 +34,7 @@ def download_html(way_to_file, cont):
         recorded file
     """
     soup = BeautifulSoup(cont, 'html.parser')
-    write_file(way_to_file, soup.prettify())
+    write_file(way_to_file, soup.prettify(formatter='html5'))
 
 
 def make_directory(way):
