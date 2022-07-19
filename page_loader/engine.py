@@ -34,11 +34,7 @@ def get_changed_html(url):
             new_link = urlparse(link)
             new_link = new_link._replace(scheme=scheme_url, netloc=netloc_url)
             list_replased.append(urlunparse(new_link))
-            log_debug(f'html: "{html}".')
-            log_debug(f'soup.prettify(): "{soup.prettify()}".')
             log_debug(f'New link: "{new_link}".')
-            print(html)
-            print(soup.prettify())
     return soup.prettify(), list_replased
 
 
@@ -83,9 +79,9 @@ def load_one_page(url, way):
     """
     log_debug('Run load one page.')
     final_html, all_links = get_changed_html(url)
-    directory_sourses = make_full_path_dir(url, way)
     way_to_file_html = f'{way}/{make_name_html(url)}'
     if all_links:
+        directory_sourses = make_full_path_dir(url, way)
         get_sourses(all_links, directory_sourses)
     log_debug('Loaded one page.')
     return save_html(way_to_file_html, final_html)
