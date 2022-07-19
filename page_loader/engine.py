@@ -36,7 +36,7 @@ def get_changed_html(url):
             new_link = new_link._replace(scheme=scheme_url, netloc=netloc_url)
             list_replased.append(urlunparse(new_link))
             log_debug(f'New link: "{new_link}".')
-    return soup.prettify(), list_replased
+    return soup.prettify(formatter=None), list_replased
 
 
 def get_sourses(list_links, directory):
