@@ -35,8 +35,8 @@ def download_html(way_to_file, cont):
     """
     soup = BeautifulSoup(cont, 'html.parser')
     log_debug(f'cont: "{cont}".')
-    log_debug(f'soup.prettify(): "{soup.prettify()}".')
-    write_file(way_to_file, soup.prettify())
+    log_debug(f'final: "{soup.prettify(formatter=None)}".')
+    write_file(way_to_file, soup.prettify(formatter=None))
 
 
 def make_directory(way):

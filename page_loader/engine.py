@@ -38,8 +38,8 @@ def get_changed_html(url):
             log_debug(f'soup.prettify(): "{soup.prettify()}".')
             log_debug(f'New link: "{new_link}".')
             print(html)
-            print(soup.prettify())
-    return soup.prettify(), list_replased
+            print(soup.prettify(formatter=None))
+    return soup.prettify(formatter=None), list_replased
 
 
 def get_sourses(list_links, directory):
