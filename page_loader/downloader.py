@@ -1,8 +1,6 @@
 """downloader module."""
 import os
 
-from bs4 import BeautifulSoup
-
 from page_loader.data_recipient import get_content
 from page_loader.file_writer import write_file
 from page_loader.logger import log_debug
@@ -33,10 +31,7 @@ def download_html(way_to_file, cont):
     Returns:
         recorded file
     """
-    soup = BeautifulSoup(cont, 'html.parser')
-    log_debug(f'cont: "{cont}".')
-    log_debug(f'final: "{soup.prettify(formatter=None)}".')
-    write_file(way_to_file, soup.prettify(formatter=None))
+    write_file(way_to_file, cont)
 
 
 def make_directory(way):

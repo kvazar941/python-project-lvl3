@@ -14,4 +14,4 @@ def test_download_html():
         assert not os.path.exists(way_result)
         download_html(way_result, 'content')
         assert os.path.exists(way_result)
-        assert read_file(way_result) == 'content\n'
+        assert read_file(way_result) == 'content'
