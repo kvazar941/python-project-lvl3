@@ -34,6 +34,8 @@ def download_html(way_to_file, cont):
         recorded file
     """
     soup = BeautifulSoup(cont, 'html.parser')
+    log_debug(f'cont: "{cont}".')
+    log_debug(f'soup.prettify(): "{soup.prettify()}".')
     write_file(way_to_file, soup.prettify())
 
 

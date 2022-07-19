@@ -18,7 +18,6 @@ TAGS = {'img': 'src', 'link': 'href', 'script': 'src'}
 
 def get_changed_html(url):
     html = get_text(url)
-    print('url = ', url)
     soup = BeautifulSoup(html, 'html.parser')
     original_url = urlparse(url)
     scheme_url = original_url.scheme
@@ -35,7 +34,11 @@ def get_changed_html(url):
             new_link = urlparse(link)
             new_link = new_link._replace(scheme=scheme_url, netloc=netloc_url)
             list_replased.append(urlunparse(new_link))
+            log_debug(f'html: "{html}".')
+            log_debug(f'soup.prettify(): "{soup.prettify()}".')
             log_debug(f'New link: "{new_link}".')
+            print(html)
+            print(soup.prettify())
     return soup.prettify(), list_replased
 
 
