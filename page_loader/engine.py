@@ -1,6 +1,6 @@
 """engine module."""
 import os
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from progress.bar import Bar
@@ -18,9 +18,11 @@ TAGS = {'img': 'src', 'link': 'href', 'script': 'src'}
 
 def get_changed_html(url):
     html = get_text(url)
+    print('url = ', url)
     soup = BeautifulSoup(html, 'html.parser')
-    netloc_url = urlparse(url).netloc
-    scheme_url = urlparse(url).scheme
+    original_url = urlparse(url)
+    scheme_url = original_url.scheme
+    netloc_url = original_url.netloc
     tags = soup.find_all(TAGS.keys())
     list_replased = []
     for tag in tags:
@@ -30,7 +32,8 @@ def get_changed_html(url):
             new = f'{netloc_url}{urlparse(link).path}'
             local_link = make_name_file(make_name_dir(url), new)
             tag[TAGS[tag.name]] = local_link
-            new_link = f'{scheme_url}://{netloc_url}{urlparse(link).path}'
+            new_link = urlparse(link)
+            new_link = new_link._replace(scheme=scheme_url, netloc=netloc_url)
             list_replased.append(new_link)
             log_debug(f'New link: "{new_link}".')
     return soup.prettify(), list_replased
