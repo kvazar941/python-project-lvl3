@@ -34,7 +34,7 @@ def get_changed_html(url):
             tag[TAGS[tag.name]] = local_link
             new_link = urlparse(link)
             new_link = new_link._replace(scheme=scheme_url, netloc=netloc_url)
-            list_replased.append(new_link)
+            list_replased.append(urlunparse(new_link))
             log_debug(f'New link: "{new_link}".')
     return soup.prettify(), list_replased
 
