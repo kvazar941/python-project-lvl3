@@ -1,13 +1,13 @@
-"""test_load_one_page."""
+"""test_download."""
 import tempfile
 
-from page_loader.engine import load_one_page
+from page_loader.engine import download
 
 LINK = 'https://ru.hexlet.io/courses'
 RESEIVED_CODE = 200
 
 
-def test_load_one_page(requests_mock):
+def test_download(requests_mock):
     links = [
         'https://ru.hexlet.io/courses',
         'https://ru.hexlet.io/courses/assets/professions/nodejs.png',
@@ -22,4 +22,4 @@ def test_load_one_page(requests_mock):
         for link in links:
             requests_mock.get(link, status_code=RESEIVED_CODE, text='')
         reseived_result = '/'.join([tmpdirname, 'ru-hexlet-io-courses.html'])
-        assert load_one_page(LINK, tmpdirname) == reseived_result
+        assert download(LINK, tmpdirname) == reseived_result

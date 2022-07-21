@@ -1,5 +1,6 @@
 """engine module."""
 import os
+from pathlib import Path
 from urllib.parse import urlparse, urlunparse
 
 from bs4 import BeautifulSoup
@@ -16,23 +17,33 @@ DEFAULT_WAY = os.getcwd()
 TAGS = {'img': 'src', 'link': 'href', 'script': 'src'}
 
 
-def get_changed_html(url):
-    html = get_text(url)
+def parse(html, url):
+    """
+    Parse and changed the html and get list resources for download.
+
+    Args:
+        html: str
+        url: str
+
+    Returns:
+        str, list
+    """
     soup = BeautifulSoup(html, 'html.parser')
     original_url = urlparse(url)
     scheme_url = original_url.scheme
     netloc_url = original_url.netloc
+    name_directory = make_name_dir(url)
     tags = soup.find_all(TAGS.keys())
     list_replased = []
     for tag in tags:
         link = tag.get(TAGS[tag.name])
         if urlparse(link).netloc in {netloc_url, ''}:
             log_debug(f'Link "{link}" found')
-            new = f'{netloc_url}{urlparse(link).path}'
-            local_link = make_name_file(make_name_dir(url), new)
+            parsed_link = urlparse(link)
+            billet = parsed_link._replace(scheme='', netloc=netloc_url)
+            local_link = make_name_file(name_directory, urlunparse(billet))
             tag[TAGS[tag.name]] = local_link
-            new_link = urlparse(link)
-            new_link = new_link._replace(scheme=scheme_url, netloc=netloc_url)
+            new_link = parsed_link._replace(scheme=scheme_url, netloc=netloc_url)  # noqa E501
             list_replased.append(urlunparse(new_link))
             log_debug(f'New link: "{new_link}".')
     return soup.prettify(), list_replased
@@ -63,10 +74,9 @@ def save_html(way, text):
     log_debug('Download html, way: {0}.'.format(way))
     download_html(way, text)
     log_debug('Html downloaded.')
-    return str(way)
 
 
-def load_one_page(url, way):
+def download(url, way=DEFAULT_WAY):
     """
     Load the page and its resources.
 
@@ -77,20 +87,15 @@ def load_one_page(url, way):
     Returns:
         str
     """
-    log_debug('Run load one page.')
-    final_html, all_links = get_changed_html(url)
-    way_to_file_html = f'{way}/{make_name_html(url)}'
-    if all_links:
-        directory_sourses = make_full_path_dir(url, way)
-        get_sourses(all_links, directory_sourses)
-    log_debug('Loaded one page.')
-    return save_html(way_to_file_html, final_html)
-
-
-def download(url, way=DEFAULT_WAY):
     log_info('Program launch.')
     log_info("The download url was obtained: '{0}'".format(url))
     check_way(way)
-    work_result = load_one_page(url, way)
+    html = get_text(url)
+    final_html, filtered_links = parse(html, url)
+    way_to_file_html = Path(way).joinpath(make_name_html(url))
+    if filtered_links:
+        directory_sourses = make_full_path_dir(url, way)
+        get_sourses(filtered_links, directory_sourses)
+    save_html(way_to_file_html, final_html)
     log_debug('Program shutdown.')
-    return work_result
+    return str(way_to_file_html)

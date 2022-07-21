@@ -30,7 +30,7 @@ def make_name_dir(url):
 
 
 def make_full_path_dir(url, way):
-    return f'{way}/{make_name_dir(url)}'
+    return Path(way).joinpath(make_name_dir(url))
 
 
 def make_name_file(directory, name):
@@ -40,4 +40,4 @@ def make_name_file(directory, name):
     else:
         way = name[:-len(extension)]
         current_file_name = f'{make_simple_name(way)}{extension}'
-    return f'{directory}/{current_file_name}'
+    return Path(directory).joinpath(current_file_name)
